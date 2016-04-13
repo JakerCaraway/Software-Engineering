@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ant.game;
+package AntClass;
 
 /**
  *
  * @author jb555
  */
 public class Cell {
-    private final int PheromoneNo = 6;
+    private final int PheromoneNo = 12;
     
     private boolean Rocky;
     private int Food;
@@ -25,7 +25,7 @@ public class Cell {
         Rocky = false;
         Food = 0;
         Ant = null;
-        Pheromones = new boolean[6];
+        Pheromones = new boolean[12];
         for(int i = 0; i<PheromoneNo; i++){
             Pheromones[i] = false;
         }
@@ -62,11 +62,15 @@ public class Cell {
         Ant = null;
     }
     
-    public void setPheramone(int Pheromone){
+    public void setPheramone(int Pheromone,String Colour){
+        if (Colour == "black")
+                Pheromone += 6;
         Pheromones[Pheromone] = !Pheromones[Pheromone];
     }
     
-    public boolean checkPheromone(int Pheromone){
+    public boolean checkPheromone(int Pheromone,String Colour){
+        if (Colour == "black")
+                Pheromone += 6;
         return Pheromones[Pheromone];
     }
     
