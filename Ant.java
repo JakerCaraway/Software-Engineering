@@ -121,4 +121,12 @@ class Ant {
     public void PutDownFood(){
         position.setFood(food+position.getFood());
     }
+    
+    public boolean getAlive(){
+        return alive;
+    }
+    
+    public void kill(){
+        alive = false;
+    }
 }
