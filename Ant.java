@@ -17,9 +17,10 @@ class Ant {
     World world;
     private int food;
     
-    public Ant(String colour,World world){
+    public Ant(String colour,World world,Cell position){
         this.world = world;
         this.colour = colour;
+        this.position = position;
         alive = true;
         food = 0;
     }
