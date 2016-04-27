@@ -21,6 +21,10 @@ public class Player {
         score = newScore;
     }
     
+    public void incrScore(){
+        score++;
+    }
+    
     public void setAntBrain(AntBrain newAntBrain){
         antBrainName = newAntBrain;
     }
