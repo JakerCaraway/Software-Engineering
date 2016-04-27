@@ -131,7 +131,7 @@ public class Tournament {
   {
       for (Entry<String, Integer> entry: playerByOrder.entrySet())
         {
-            System.out.println(sortPlayers(playerScores)));
+            System.out.println(sortPlayers(playerScores));
         }
   }
   
