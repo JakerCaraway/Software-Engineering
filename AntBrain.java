@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.io.Reader;
 
 /**
- *
+ *IMPORTANT NOTES:
+ * can NOT set brain directly. 
+ *  - each time have to make a new ant brain object
+ * has getBrain method
+ * constructor must be passed EITHER a STRING or a FILE
  * @author oab24
  */
 public class AntBrain {
