@@ -1,5 +1,3 @@
-package AntGame;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,22 +5,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
-
-
 /**
- *  IMPORTANT NOTES:
+ *IMPORTANT NOTES:
  * can NOT set brain directly. 
  *  - each time have to make a new ant brain object
  * has getBrain method
  * constructor must be passed EITHER a STRING or a FILE
- * 
- * 
  * @author oab24
  */
 public class AntBrain {
-    private String finiteStateMachine;
+    private String[] finiteStateMachine;
 
-    public String getFiniteStateMachine() {
+    public String[] getFiniteStateMachine() {
         return finiteStateMachine;
     }    
     
@@ -32,18 +26,17 @@ public class AntBrain {
             FileReader fileReader;
             BufferedReader br = new BufferedReader( fileReader = new FileReader(antBrainFile));
             String line = br.readLine();
-            finiteStateMachine = "";
+            String overall_line = "";
             while (line != null) { // null signals end of stream
                 // process line
                 if (line != null){
-                    finiteStateMachine = finiteStateMachine + line + "\n";
+                    overall_line = overall_line + line + "\n";
                 }
                 line = br.readLine();                
             }
             br.close();             
 
-            if (!checkBrain(finiteStateMachine)) {
-                finiteStateMachine = "";
+            if (!checkBrain(overall_line)) {
                 System.out.println("Ant brain not compatible. REJECTED");
             }
         } catch (IOException exception) {
@@ -52,11 +45,9 @@ public class AntBrain {
     }
     
     public AntBrain(String antBrainString) {
-        if (checkBrain(antBrainString))
-            this.finiteStateMachine = antBrainString;
-        else {
+        if (!checkBrain(antBrainString)){
             System.out.println("Ant brain not compatible. REJECTED");
-        }            
+        }           
     }
     
     // MUST be set to private once testing concluded
@@ -67,6 +58,9 @@ public class AntBrain {
         while ( (i < splitFile.length) && whileChecker){
             whileChecker = checkLine(splitFile[i]);
             i++;
+        }
+        if (whileChecker){
+            finiteStateMachine = splitFile;
         }
         return whileChecker;
     }
