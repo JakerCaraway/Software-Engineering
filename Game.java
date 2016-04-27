@@ -125,7 +125,15 @@ public class Game {
             for (int j = 0; i < antNo; i++) {
                 String currentColour;
                 currentColour = Ants[j].getColour();
-                
+                if (currentColour.equals("red")){
+                    
+                    
+                    
+                } else {
+                    
+                    
+                    
+                }
                 
                 
                 //Do the next command

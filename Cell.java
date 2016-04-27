@@ -67,13 +67,13 @@ public class Cell {
     }
     
     public void setPheramone(int Pheromone,String Colour){
-        if (Colour == "black")
+        if (Colour.equals("black"))
                 Pheromone += 6;
         Pheromones[Pheromone] = !Pheromones[Pheromone];
     }
     
     public boolean checkPheromone(int Pheromone,String Colour){
-        if (Colour == "black")
+        if (Colour.equals("black"))
                 Pheromone += 6;
         return Pheromones[Pheromone];
     }

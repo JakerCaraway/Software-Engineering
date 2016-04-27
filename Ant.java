@@ -40,46 +40,46 @@ class Ant {
     public boolean sense(int Direction, String Condition){
         Cell checkCell = position.getAdjacent(Direction);
         
-        if (Condition == "Food"){
+        if (Condition.equals("Food")){
             if (checkCell.getFood()>0)
                 return true;
             else
                 return false;
         } 
         
-        if (Condition == "Rocky"){
+        if (Condition.equals("Rocky")){
             return checkCell.getRocky();
         }
         
-        if (Condition == "Enemy"){
+        if (Condition.equals("Enemy")){
             if (checkCell.getAnt() != null){
-                return (checkCell.getAnt().getColour() != colour);
+                return (!(checkCell.getAnt().getColour().equals(colour)));
             } else return false;
         } 
         
-        if (Condition == "EnemyWithFood"){
+        if (Condition.equals("EnemyWithFood")){
             if (checkCell.getAnt() != null){
-                return (checkCell.getAnt().getColour() != colour && checkCell.getAnt().getFood());
+                return (!(checkCell.getAnt().getColour().equals(colour)) && checkCell.getAnt().getFood());
             } else return false;
         } 
         
-        if (Condition == "FriendWithFood"){
+        if (Condition.equals("FriendWithFood")){
             if (checkCell.getAnt() != null){
-                return (checkCell.getAnt().getColour() == colour && checkCell.getAnt().getFood());
+                return (checkCell.getAnt().getColour().equals(colour) && checkCell.getAnt().getFood());
             } else return false;
         }
         
-        if (Condition == "Friend"){
+        if (Condition.equals("Friend")){
             if (checkCell.getAnt() != null){
-                return (checkCell.getAnt().getColour() == colour);
+                return (checkCell.getAnt().getColour().equals(colour));
             } else return false;
         }
         
-        if (Condition == "Home"){
+        if (Condition.equals("Home")){
             return (checkCell.checkAntHill(colour));
         }
         
-        if (Condition == "FoeHome")
+        if (Condition.equals("FoeHome"))
             return (checkCell.checkAntHill(world.getOtherColour(colour)));
         
         return false;
