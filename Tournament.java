@@ -31,7 +31,7 @@ public class Tournament {
      
   }
   
-
+//Start match with one player plays red, one player plays black
   public void startMactch(Player 1, Player 2)
   {
     newGame = new Game();
@@ -103,9 +103,15 @@ public class Tournament {
   
   public void getRanking()
   {
-      for (int i = 0; i < players.size(); i++ ){
-       
+      scores = new HashMap<String, Integer>();
+      for (int i = 0; i < players.size(); i++ )
+      {
+         Player x = players.get(i);
+         scores.put(x.getPlayerName(), getScores(x));
       }
+      
+      
+      
   }
   
   public void displayRanking()
