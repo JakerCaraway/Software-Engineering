@@ -115,7 +115,7 @@ public class Tournament {
  private static Map<String, Integer> sortPlayer(Map<String, Integer> unsortedPlayer)
   {
       List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(unsortedPlayer.entrySet());
-      Collections.sort(playerByOrder, new Comparator<score>())
+      Collections.sort(playerByOrder, new Comparator<Entry<String, Integer>>())
       {
         public int compare(Entry<String, Integer> e1, Entry<String,Integer> e2)
         {
