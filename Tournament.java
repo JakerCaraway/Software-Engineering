@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package antgame;
 
 
 import java.util.ArrayList;
@@ -83,9 +82,9 @@ public class Tournament {
       this.player = player;
       for (int i = 0; i < player.size();i++)
       {
-      player.setAntBrain(brain);
-      player.setPlayerName(name);
-      player.setScore(0);
+        player.setAntBrain(brain);
+        player.setPlayerName(name);
+        player.setScore(0);
       }
      
   }
