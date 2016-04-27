@@ -103,7 +103,9 @@ public class Tournament {
   
   public void getRanking()
   {
-      
+      for (int i = 0; i < players.size(); i++ ){
+       
+      }
   }
   
   public void displayRanking()
