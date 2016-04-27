@@ -40,7 +40,8 @@ public class Tournament {
      
   }
   
-
+  
+//Start a match with one player playing red, the other playing black
   public void startMactch(Player 1, Player 2)
   {
     newGame = new Game();
@@ -83,18 +84,14 @@ public class Tournament {
      
   }
   
-  public HashMap<String, Integer> getScores()
-  {
-    return scores;
-  }
-          
+
   public int getScore(Player x)
   {
     return scores.get(x.getPlayerName());
   }
   
 
-    public static getRanking()
+  public static getRanking()
   {
       scores = new HashMap<String, Integer>();
       for (int i = 0; i < players.size(); i++ )
