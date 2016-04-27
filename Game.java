@@ -21,6 +21,8 @@ public class Game {
     private Player BlackPlayer;
     private Ant[] Ants;
     private World GameWorld;
+    private String RedFSM;
+    private String BlackFSM;
 
     public Game(AntBrain RedAntBrain, AntBrain BlackAntBrain, World GameWorld, Player RedPlayer, Player BlackPlayer) {
         this.RedAntBrain = RedAntBrain;
@@ -29,6 +31,8 @@ public class Game {
         this.BlackPlayer = BlackPlayer;
         Ants = new Ant[antNo];
         this.GameWorld = GameWorld;
+        RedFSM = RedAntBrain.getFiniteStateMachine();
+        BlackFSM = BlackAntBrain.getFiniteStateMachine();
     }
 
     public AntBrain getRedAntBrain() {
@@ -89,11 +93,6 @@ public class Game {
 
             if (isDead) {
                 Ants[i].kill();
-                if (Ants[i].getColour().equals("Red")){
-                    BlackPlayer.incrScore();
-                } else {
-                    RedPlayer.incrScore();
-                }
             }
         }
     }
@@ -119,27 +118,43 @@ public class Game {
 
     }
 
+    public void tallyScore(){
+        Cell[] map;
+        map = GameWorld.getMap();
+        int redFood = 0;
+        int blackFood = 0;
+        for (int i = 0; i < map.length; i++) {
+            if (map[i].checkAntHill("black")){
+                blackFood += map[i].getFood();
+            } else if (map[i].checkAntHill("red")){
+                redFood += map[i].getFood();
+            }
+        }
+        RedPlayer.setScore(redFood);
+        BlackPlayer.setScore(blackFood);
+    }
+    
     public void run() {
+        String currentColour;
+        String currentFSM;
+        
         generateAnts();
         for (int i = 0; i < rounds; i++) {
             for (int j = 0; i < antNo; i++) {
-                String currentColour;
                 currentColour = Ants[j].getColour();
                 if (currentColour.equals("red")){
-                    
-                    
-                    
+                    currentFSM = RedFSM;
                 } else {
-                    
-                    
-                    
+                    currentFSM = BlackFSM;
                 }
-                
                 
                 //Do the next command
             }
             checkDeadAnts();
         }
+        tallyScore();
     }
 
 }
+
+//split("\s") used to split strings into words in a new string array 
