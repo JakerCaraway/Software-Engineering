@@ -1,22 +1,31 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-import java.util.ArrayList;
-import java.util.HashMap;
-/**
+ /**
  *
  * @author wc87
  */
+package AntGame;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+
 public class Tournament {
  
  
   private Player player;
   private HashMap<String, Integer> scores;
   private ArrayList<Player> players;
-  
   private Game newGame;
   
 
@@ -51,31 +60,16 @@ public class Tournament {
               Player player2 = players.get(j); 
          
               startMatch(player1, player2);
+              startMatch(player2, player1); //Create a second match with players playing different colour
          
             }
          }
          
-        secondMatch();
+        getRanking(); // get ranking and to see if threre is a winner
         displayRanking();
           
   }
-  
-    //Create a second match with player playing diffenrent colour
-  public void secondMatch()
-  {
-      for (int i = 1, i < players.size(); i++)
-         {
-           for (int j = 0, j < i, j++)
-            {
-              Player player1 = players.get(i);
-              Player player2 = players.get(j); 
-         
-              startMatch(player2, player1);
-         
-            }
-         }
-      
-  }
+
 
   public void setPlayers(ArrayList<Player> player, ArrayList<AntBrain> brain, ArayList<String> name)
   {
