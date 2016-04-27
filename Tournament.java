@@ -84,13 +84,14 @@ public class Tournament {
      
   }
   
-
+//Get player's scores
   public int getScore(Player x)
   {
     return x.getScore();
   }
   
-
+//Get the ranking of the tournament and to find if there is a clear winner
+//If not, run a new tournament
   public static getRanking()
   {
       scores = new HashMap<String, Integer>();
@@ -100,10 +101,13 @@ public class Tournament {
          scores.put(x.getPlayerName(), getScores(x));
       }
       
-      Map<String, Integer> playerByOrder = sortPlayer(scores);
+      Map<String, Integer> playerByOrder = sortPlayers(scores);
+      //Here I need to do more coding to find if there is a clear winner
+      //
   }
  
- private static Map<String, Integer> sortPlayer(Map<String, Integer> unsortedPlayer)
+ //Create a comparator to compare players' scores
+ private static Map<String, Integer> sortPlayers(Map<String, Integer> unsortedPlayer)
   {
       List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(unsortedPlayer.entrySet());
       Collections.sort(playerByOrder, new Comparator<Entry<String, Integer>>())
@@ -123,12 +127,12 @@ public class Tournament {
       return playerByOrder;
   }
       
-  
+  //Display the final ranking
   public void displayRanking()
   {
       for (playerByOrder p : p.entrySet())
         {
-            System.out.println("Player : " + entry.getKey() + " Score : "+ entry.getValue());
+            System.out.println(sortPlayer));
         }
   }
   
