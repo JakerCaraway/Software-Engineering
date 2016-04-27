@@ -26,8 +26,8 @@ public class Tournament {
   {  
    
    
-   this();
-   setPlayers(players, playerName, brain);
+    this();
+    setPlayers(players, playerName, brain);
      
   }
   
