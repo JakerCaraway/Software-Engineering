@@ -50,7 +50,7 @@ public class Tournament {
   }
   
 
-  // Run a tounament
+ // Run a tounament
   public void runTournament()
   {
        for (int i = 1, i < players.size(); i++)
@@ -71,7 +71,7 @@ public class Tournament {
           
   }
 
-
+// Create a player, set player name and Ant Brain
   public void setPlayers(ArrayList<Player> player, ArrayList<AntBrain> brain, ArayList<String> name)
   {
       this.player = player;
@@ -87,7 +87,7 @@ public class Tournament {
 
   public int getScore(Player x)
   {
-    return scores.get(x.getPlayerName());
+    return x.getScore();
   }
   
 
