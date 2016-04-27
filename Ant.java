@@ -16,6 +16,7 @@ class Ant {
     Cell position;
     World world;
     private int food;
+    private int state;
     
     public Ant(String colour,World world,Cell position){
         this.world = world;
@@ -133,5 +134,13 @@ class Ant {
     
     public Cell getPosition(){
         return position;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
