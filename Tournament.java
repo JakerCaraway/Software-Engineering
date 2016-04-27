@@ -24,7 +24,7 @@ public class Tournament {
  
  
   private Player player;
-  private HashMap<String, Integer> scores;
+  private HashMap<String, Integer> playerScores;//Store player's name and scores
   private ArrayList<Player> players;
   private Game newGame;
   
@@ -46,7 +46,6 @@ public class Tournament {
   {
     newGame = new Game();
     newGame.Run(1,2);
-
   }
   
 
@@ -65,7 +64,7 @@ public class Tournament {
          
             }
          }
-         
+        
         getRanking(); // get ranking and to see if threre is a winner
         displayRanking();
           
@@ -94,14 +93,14 @@ public class Tournament {
 //If not, run a new tournament
   public static getRanking()
   {
-      scores = new HashMap<String, Integer>();
+      playerScores = new HashMap<String, Integer>();
       for (int i = 0; i < players.size(); i++ )
       {
          Player x = players.get(i);
-         scores.put(x.getPlayerName(), getScores(x));
+         playerScores.put(x.getPlayerName(), getScores(x));
       }
       
-      Map<String, Integer> playerByOrder = sortPlayers(scores);
+      Map<String, Integer> playerByOrder = sortPlayers(playerScores);
       //Here I need to do more coding to find if there is a clear winner
       //
   }
@@ -132,7 +131,7 @@ public class Tournament {
   {
       for (playerByOrder p : p.entrySet())
         {
-            System.out.println(sortPlayer));
+            System.out.println(sortPlayers(playerScores)));
         }
   }
   
