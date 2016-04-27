@@ -118,7 +118,7 @@ public class Tournament {
       }
       Map<String, Integer> playerByOrder = new LinkedHashMap<String, Integer>();
       
-      for (scores entry : list)
+      for (Entry<String, Integer> entry : list)
       {
        playerByOrder.put(entry.getKey(), entry.getValue());
        
@@ -126,10 +126,10 @@ public class Tournament {
       return playerByOrder;
   }
       
-  //Display the final ranking
+  //Display the final ranking and winner
   public void displayRanking()
   {
-      for (playerByOrder p : p.entrySet())
+      for (Entry<String, Integer> entry: playerByOrder.entrySet())
         {
             System.out.println(sortPlayers(playerScores)));
         }
