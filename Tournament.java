@@ -65,7 +65,7 @@ public class Tournament {
             }
          }
         
-        getRanking(); // get ranking and to see if threre is a winner
+        getRanking(); 
         displayRanking();
           
   }
@@ -100,9 +100,9 @@ public class Tournament {
          playerScores.put(x.getPlayerName(), getScores(x));
       }
       
-      Map<String, Integer> playerByOrder = sortPlayers(playerScores);
-      //Here I need to do more coding to find if there is a clear winner
-      //
+      //Map<String, Integer> playerByOrder = sortPlayers(playerScores);
+      
+      checkWinner();
   }
  
  //Create a comparator to compare players' scores
@@ -126,13 +126,38 @@ public class Tournament {
       return playerByOrder;
   }
       
-  //Display the final ranking and winner
+  //Display the final ranking
   public void displayRanking()
   {
       for (Entry<String, Integer> entry: playerByOrder.entrySet())
         {
             System.out.println(sortPlayers(playerScores));
         }
+        
+  }
+ //Check if there is only one winner
+  public void checkWinner()
+  {
+   int i = 0;
+   String name;
+   int highestScore = (Collections.max(playerScores.values())); 
+   for(Entry<String, Integer> entry : playerScores.entrySet())
+   {
+     if (entry.getValue() == highestScore)
+     {
+       i++;
+       name = entry.geyKey();
+     }
+   }
+   if (i >= 2 || i < 1)
+    {
+      runTournament(); // No clear Winner, Run a new tournament
+    }
+   if (i == 1) // there is only one player with highest score
+    {
+     System.out.println("Winner: " + name + " !");
+     displayRanking();
+    }
   }
   
   
