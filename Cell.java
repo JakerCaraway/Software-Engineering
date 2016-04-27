@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AntClass;
+package AntGame;
 
 /**
  *
@@ -60,6 +60,10 @@ public class Cell {
     
     public void removeAnt(){
         Ant = null;
+    }
+    
+    public boolean isAnt(){
+        return !(Ant == null);
     }
     
     public void setPheramone(int Pheromone,String Colour){

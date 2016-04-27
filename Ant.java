@@ -1,4 +1,4 @@
-package AntClass;
+package AntGame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -129,5 +129,9 @@ class Ant {
     
     public void kill(){
         alive = false;
+    }
+    
+    public Cell getPosition(){
+        return position;
     }
 }
