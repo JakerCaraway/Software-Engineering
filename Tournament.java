@@ -126,7 +126,7 @@ public class Tournament {
   
   public void displayRanking()
   {
-      for (Entry<String, Integer> entry : playerByOrder.entrySet())
+      for (playerByOrder p : p.entrySet())
         {
             System.out.println("Player : " + entry.getKey() + " Score : "+ entry.getValue());
         }
