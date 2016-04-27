@@ -58,6 +58,7 @@ public class AntBrain {
         int i = 0;
         while ( (i < splitFile.length) && whileChecker){
             whileChecker = checkLine(splitFile[i]);
+            splitFile[i] = splitFile[i].toLowerCase();
             i++;
         }
         if (whileChecker){
