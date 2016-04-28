@@ -1,0 +1,5 @@
+#        rocky cell
+.        clear cell (containing nothing interesting)
++        red anthill cell
+-        black anthill cell
+1 to 9   clear cell containing the given number of food particles
