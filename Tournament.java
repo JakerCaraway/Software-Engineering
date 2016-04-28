@@ -156,7 +156,6 @@ public class Tournament {
    if (i == 1) // there is only one player with highest score
     {
      System.out.println("Winner: " + name + " !");
-     displayRanking();
     }
   }
   
