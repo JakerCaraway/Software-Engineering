@@ -100,7 +100,7 @@ public class Tournament {
          playerScores.put(x.getPlayerName(), getScores(x));
       }
       
-      //Map<String, Integer> playerByOrder = sortPlayers(playerScores);
+      Map<String, Integer> playerByOrder = sortPlayers(playerScores);
       
       checkWinner();
   }
