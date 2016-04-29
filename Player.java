@@ -13,6 +13,10 @@ public class Player {
     private AntBrain antBrainName;
     private int score;
     
+    public Player(AntBrain antBrainName){
+        this.antBrainName = antBrainName;
+    }
+    
     public int getScore() {
         return score;
     }
