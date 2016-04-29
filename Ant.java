@@ -18,6 +18,7 @@ class Ant {
     private int food;
     private int state;
     private int rest;
+    private int direction;
     
     public Ant(String colour,World world,Cell position){
         this.world = world;
@@ -26,6 +27,7 @@ class Ant {
         alive = true;
         food = 0;
         rest = 0;
+        direction = 0;
     }
     
     public boolean getFood(){
@@ -36,8 +38,8 @@ class Ant {
         return colour;
     }
     
-    public void move(int Direction){
-        position = position.getAdjacent(Direction);
+    public void move(){
+        position = position.getAdjacent(direction);
     }
     
     public boolean sense(int Direction, String Condition){
@@ -120,6 +122,7 @@ class Ant {
     
     public void PickUpFood(){
         food = position.getFood();
+        position.setFood(0);
     }
     
     public void PutDownFood(){
@@ -158,5 +161,27 @@ class Ant {
         if (rest > 0){
             rest -= 1;
         }
+    }
+    
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirectionR() {
+        direction += 1;
+        if (direction == 6){
+            direction = 0;
+        }
+    }
+    
+    public void setDirectionL(){
+        direction -= 1;
+        if (direction == -1){
+            direction = 5;
+        }
+    }
+
+    public void setPosition(Cell position) {
+        this.position = position;
     }
 }
