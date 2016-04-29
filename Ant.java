@@ -17,6 +17,7 @@ class Ant {
     World world;
     private int food;
     private int state;
+    private int rest;
     
     public Ant(String colour,World world,Cell position){
         this.world = world;
@@ -24,6 +25,7 @@ class Ant {
         this.position = position;
         alive = true;
         food = 0;
+        rest = 0;
     }
     
     public boolean getFood(){
@@ -142,5 +144,19 @@ class Ant {
 
     public void setState(int state) {
         this.state = state;
+    }
+    
+    public int getRest() {
+        return rest;
+    }
+
+    public void setRest() {
+        rest = 14;
+    }
+    
+    public void decrRest() {
+        if (rest > 0){
+            rest -= 1;
+        }
     }
 }
