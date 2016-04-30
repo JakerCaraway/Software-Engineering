@@ -12,8 +12,10 @@ package AntGame;
 public class Player {
     private AntBrain antBrainName;
     private int score;
+    private String name;
     
-    public Player(AntBrain antBrainName){
+    public Player(String name, AntBrain antBrainName){
+        this.name = name;
         this.antBrainName = antBrainName;
     }
     
