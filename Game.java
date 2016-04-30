@@ -24,6 +24,7 @@ public class Game {
     private String[] RedFSM;
     private String[] BlackFSM;
     private RandomInt NumberGen;
+    private int RoundCount;
 
     public Game(World GameWorld, Player RedPlayer, Player BlackPlayer) {
         this.RedPlayer = RedPlayer;
@@ -34,6 +35,7 @@ public class Game {
         this.GameWorld = GameWorld;
         RedFSM = RedAntBrain.getFiniteStateMachine();
         BlackFSM = BlackAntBrain.getFiniteStateMachine();
+        RoundCount = 0;
     }
 
     public AntBrain getRedAntBrain() {
@@ -319,6 +321,7 @@ public class Game {
                 Ants[j] = currentAnt;
             }
             checkDeadAnts();
+            RoundCount++;
         }
         tallyScore();
     }
