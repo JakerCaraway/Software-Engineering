@@ -19,6 +19,10 @@ public class Player {
         this.antBrainName = antBrainName;
     }
     
+    public String getName() {
+        return name;
+    }
+    
     public int getScore() {
         return score;
     }
