@@ -17,6 +17,7 @@ public class Player {
     public Player(String name, AntBrain antBrainName){
         this.name = name;
         this.antBrainName = antBrainName;
+        score = 0;
     }
     
     public String getName() {
