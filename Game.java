@@ -66,6 +66,10 @@ public class Game {
         this.Ants = Ants;
     }
 
+    public int getRoundCount(){
+        return RoundCount;
+    }
+
     public void checkDeadAnts() {
         boolean isDead;
         int deadCount;
