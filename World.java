@@ -51,16 +51,18 @@ class World {
         } else return "none";
     }
 
+    //not certain the numbers here work quite right have to test
     private void formatWorld(char[][] designs) {
         Cell currentCell = Recursion1;
-        Cell nextCell;
+        Cell nextCell = null;
         for (int y = 0; y<designs.length;y++){
+            if (y < sizeY-1){                    
             if (y%2 !=0){
                 nextCell = currentCell.getAdjacent(1);
             } else{
                 nextCell = currentCell.getAdjacent(2);
             }
-            
+            }
             for (int x = 0; x<designs.length;x++){
                 if (designs[x][y] == '#'){
                     currentCell.setRocky();
@@ -74,7 +76,7 @@ class World {
                     currentCell = currentCell.getAdjacent(3);
             }
             
-            if (y != y-1){
+            if (y < sizeY-1){
                 currentCell = nextCell;
             }
             }
@@ -102,6 +104,29 @@ class World {
             }*/
         } catch (IOException exception) {
             System.out.println("File incorrect. Can't load data");
+        }
+    }
+    
+    public String GetCurrentWorld(){
+        String output = "";
+        Cell currentCell = Recursion1;
+        Cell nextCell = null;
+        for (int y = 0; y < sizeY; y++){
+            output += "/n";
+            if (y < sizeY-1){                    
+            if (y%2 !=0){
+                nextCell = currentCell.getAdjacent(1);
+            } else{
+                nextCell = currentCell.getAdjacent(2);
+                output += " ";
+            }
+            }    
+            for(int x = 0; x< sizeX; x++){
+                output += currentCell.toString() + " ";
+            }
+            if (y < sizeY-1){
+                currentCell = nextCell;
+            }
         }
     }
 

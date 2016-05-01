@@ -228,4 +228,25 @@ public class Cell {
             }
         }
     }
+    
+    @Override
+    public String toString(){
+        if (getRocky()){
+            return "#";
+        } else if (isAnt()){
+            if (getAnt().getColour() == "red"){
+                return "r";
+            } else {
+                return "b";
+            }
+        } else if (getFood() > 0){
+                return "" + getFood();
+        } else if (RedAntHill){
+            return "+";
+        } else if (BlackAntHill){
+            return "-";
+        } else {
+            return ".";
+        }
+    }
 }
