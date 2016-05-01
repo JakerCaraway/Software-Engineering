@@ -21,6 +21,18 @@ import java.util.Map.Entry;
 import java.util.Iterator;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Iterator;
+
+
 public class Tournament {
  
  
@@ -28,30 +40,21 @@ public class Tournament {
   private HashMap<String, Integer> playerScores;//Store player's name and scores
   private ArrayList<Player> players;
   private Game newGame;
+  private World world;
 
   
 
 
 //Create a tournament
-  public Tournament(ArrayList<Player> player, ArrayList<AntBrain> brain)
+  public Tournament(ArrayList<Player> player, World world)
   {  
-       Iterator<Player> it1 = player.iterator();
-       Iterator<AntBrain> it2 = brain.iterator();
-       while(it1.hasNext() && it2.hasNext())
+       for(Player p : player )
        {
-           this.player = player;
-           player.setAntBrain(brain);
+         this.world = world;
        }
+       newGame = new Game();
   }
   
-  
-  
-//Start a match with one player playing red, the other playing black
-  public  starMatch(Player 1, Player 2)
-  {
-    newGame = new Game();
-    newGame.Run(1,2);
-  }
   
 
  // Run a tounament
@@ -60,8 +63,11 @@ public class Tournament {
       for(Player a : players)
           for(Player b : players)
           {
-             startMatch(a,b);
-             startMatch(b,a);//Create a second match with players playing different colour
+             if(a != b)
+             {
+             newGame.run(a,b,world);
+             newGame.run(b,a,world);//Create a second match with players playing different colour
+             }
           }
       checkWinner();
                  
@@ -133,4 +139,3 @@ public class Tournament {
     }
   }
 }
-  
