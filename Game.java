@@ -118,8 +118,8 @@ public class Game {
 
     public void generateAnts() {
         int antCount = 0;
-        Cell[] map;
-        map = GameWorld.getWorld();
+        Cell[] map = null;
+        map[1] = GameWorld.getWorld();
         for (int i = 0; i < map.length; i++) {
             if (map[i].checkAntHill("black")) {
                 Ant newAnt;
@@ -138,8 +138,8 @@ public class Game {
     }
 
     public void tallyScore() {
-        Cell[] map;
-        map = GameWorld.getWorld();
+        Cell[] map = null;
+        map[1] = GameWorld.getWorld();
         int redFood = 0;
         int blackFood = 0;
         for (int i = 0; i < map.length; i++) {
