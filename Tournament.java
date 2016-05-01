@@ -21,18 +21,6 @@ import java.util.Map.Entry;
 import java.util.Iterator;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Iterator;
-
-
 public class Tournament {
  
  
@@ -55,7 +43,11 @@ public class Tournament {
        newGame = new Game();
   }
   
-  
+  public void startMatch(World w, Player 1, Player 2 )
+  {
+     newGame = new Game(w,1,2); 
+     newGame.Run();
+  }
 
  // Run a tounament
   public void runTournament()
@@ -65,8 +57,8 @@ public class Tournament {
           {
              if(a != b)
              {
-             newGame.run(a,b,world);
-             newGame.run(b,a,world);//Create a second match with players playing different colour
+             startMatch(world,a,b);
+             startMatch(world,b,a); //Create a second match with players playing different colour
              }
           }
       checkWinner();
