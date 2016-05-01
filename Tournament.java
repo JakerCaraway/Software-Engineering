@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Iterator;
 
 
 public class Tournament {
@@ -27,22 +28,26 @@ public class Tournament {
   private HashMap<String, Integer> playerScores;//Store player's name and scores
   private ArrayList<Player> players;
   private Game newGame;
+
   
 
 
 //Create a tournament
-  public Tournament(ArrayList<Player> players, ArrayList<String> playerName, ArrayList<AntBrain> brain)
+  public Tournament(ArrayList<Player> player, ArrayList<AntBrain> brain)
   {  
-   
-   
-    this();
-    setPlayers(players, playerName, brain);
-     
+       Iterator<Player> it1 = player.iterator();
+       Iterator<AntBrain> it2 = brain.iterator();
+       while(it1.hasNext() && it2.hasNext())
+       {
+           this.player = player;
+           player.setAntBrain(brain);
+       }
   }
   
   
+  
 //Start a match with one player playing red, the other playing black
-  public void startMactch(Player 1, Player 2)
+  public  starMatch(Player 1, Player 2)
   {
     newGame = new Game();
     newGame.Run(1,2);
@@ -52,35 +57,14 @@ public class Tournament {
  // Run a tounament
   public void runTournament()
   {
-       for (int i = 1, i < players.size(); i++)
-         {
-           for (int j = 0, j < i, j++)
-            {
-              Player player1 = players.get(i);
-              Player player2 = players.get(j); 
-         
-              startMatch(player1, player2);
-              startMatch(player2, player1); //Create a second match with players playing different colour
-         
-            }
-         }
-        
-        getRanking(); 
-        displayRanking();
-          
-  }
-
-// Create a player, set player name and Ant Brain
-  public void setPlayers(ArrayList<Player> player, ArrayList<AntBrain> brain, ArayList<String> name)
-  {
-      this.player = player;
-      for (int i = 0; i < player.size();i++)
-      {
-        player.setAntBrain(brain);
-        player.setPlayerName(name);
-        player.setScore(0);
-      }
-     
+      for(Player a : players)
+          for(Player b : players)
+          {
+             startMatch(a,b);
+             startMatch(b,a);//Create a second match with players playing different colour
+          }
+      checkWinner();
+                 
   }
   
 //Get player's scores
@@ -89,36 +73,23 @@ public class Tournament {
     return x.getScore();
   }
   
-//Get the ranking of the tournament and to find if there is a clear winner
-//If not, run a new tournament
-  public static getRanking()
-  {
-      playerScores = new HashMap<String, Integer>();
-      for (int i = 0; i < players.size(); i++ )
-      {
-         Player x = players.get(i);
-         playerScores.put(x.getPlayerName(), getScores(x));
-      }
-      
-      Map<String, Integer> playerByOrder = sortPlayers(playerScores);
-      
-      checkWinner();
-  }
  
  //Create a comparator to compare players' scores
  private static Map<String, Integer> sortPlayers(Map<String, Integer> unsortedPlayer)
   {
-      List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(unsortedPlayer.entrySet());
-      Collections.sort(playerByOrder, new Comparator<Entry<String, Integer>>())
-      {
-        public int compare(Entry<String, Integer> e1, Entry<String,Integer> e2)
-        {
-          return e2.getValue.compareTo(e1.getValue())
-        }
-      }
-      Map<String, Integer> playerByOrder = new LinkedHashMap<String, Integer>();
+      List<Entry<String, Integer>> list = new LinkedList<>(unsortedPlayer.entrySet());
+      Collections.sort(list, new Comparator<Entry<String, Integer>>() {
+
+          public int compare(Entry<String, Integer> e1, Entry<String, Integer> e2) 
+         {
+          return e2.getValue().compareTo(e1.getValue());
+         }
+      });
+     
+   
+      Map<String, Integer> playerByOrder = new LinkedHashMap<>();
       
-      for (Entry<String, Integer> entry : list)
+      for(Entry<String, Integer> entry : list)
       {
        playerByOrder.put(entry.getKey(), entry.getValue());
        
@@ -126,38 +97,40 @@ public class Tournament {
       return playerByOrder;
   }
       
-  //Display the final ranking
-  public void displayRanking()
-  {
-      for (Entry<String, Integer> entry: playerByOrder.entrySet())
-        {
-            System.out.println(playerByOrder);
-        }
-        
-  }
  //Check if there is only one winner
   public void checkWinner()
   {
-   int i = 0;
-   String name;
-   int highestScore = (Collections.max(playerScores.values())); 
-   for(Entry<String, Integer> entry : playerScores.entrySet())
-   {
-     if (entry.getValue() == highestScore)
-     {
-       i++;
-       name = entry.geyKey();
-     }
-   }
-   if (i >= 2 || i < 1)
+    playerScores = new HashMap<>();
+    for (Player x : players) 
+    {
+      playerScores.put(x.getName(), x.getScore());
+    }
+      
+    Map<String, Integer> playerByOrder = sortPlayers(playerScores);
+
+    int h = 0;//the number of player with highest scores
+    String name = "";
+    int highestScore = (Collections.max(playerScores.values())); 
+    for (Entry<String, Integer> entry : playerScores.entrySet())
+     {      
+       if (entry.getValue() == highestScore)
+         {
+            h++;
+            name = entry.getKey();
+         } 
+      }
+   if (h != 1)
     {
       runTournament(); // No clear Winner, Run a new tournament
     }
-   if (i == 1) // there is only one player with highest score
+   if (h == 1) // there is only one player with highest score
     {
-     System.out.println("Winner: " + name + " !");
+        System.out.println("Winner: " + name + " !");
+        for (Entry<String, Integer> entry: playerByOrder.entrySet())
+        {
+            System.out.println(playerByOrder);
+        }
     }
   }
+}
   
-  
- 
