@@ -40,7 +40,7 @@ public class Tournament {
        {
          this.world = world;
        }
-       newGame = new Game();
+       
   }
   
   public void startMatch(World w, Player 1, Player 2 )
