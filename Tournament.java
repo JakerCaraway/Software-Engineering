@@ -27,7 +27,6 @@ public class Tournament {
   private Player player;
   private HashMap<String, Integer> playerScores;//Store player's name and scores
   private ArrayList<Player> players;
-  private Game newGame;
   private World world;
 
   
