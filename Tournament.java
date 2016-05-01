@@ -43,11 +43,6 @@ public class Tournament {
        
   }
   
-  public void startMatch(World w, Player 1, Player 2 )
-  {
-     newGame = new Game(w,1,2); 
-     newGame.Run();
-  }
 
  // Run a tounament
   public void runTournament()
@@ -57,14 +52,15 @@ public class Tournament {
           {
              if(a != b)
              {
-             startMatch(world,a,b);
-             startMatch(world,b,a); //Create a second match with players playing different colour
+                 Game game1 = new Game(world,a,b);
+                 Game game2 = new Game(world,b,a); //Create a second match with players playing different colour
+                 game1.run();
+                 game2.run();
              }
           }
       checkWinner();
                  
   }
-  
 //Get player's scores
   public int getScore(Player x)
   {
