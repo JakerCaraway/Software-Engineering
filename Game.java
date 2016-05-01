@@ -70,6 +70,16 @@ public class Game {
         return RoundCount;
     }
 
+    public String getWinner(){
+        if (RedPlayer.getScore() > BlackPlayer.getScore()){
+            return "red";
+        } else if (BlackPlayer.getScore() > RedPlayer.getScore()){
+            return "black";
+        } else {
+            return "draw";
+        }
+    }
+
     public void checkDeadAnts() {
         boolean isDead;
         int deadCount;
@@ -109,7 +119,7 @@ public class Game {
     public void generateAnts() {
         int antCount = 0;
         Cell[] map;
-        map = GameWorld.getMap();
+        map = GameWorld.getWorld();
         for (int i = 0; i < map.length; i++) {
             if (map[i].checkAntHill("black")) {
                 Ant newAnt;
@@ -129,7 +139,7 @@ public class Game {
 
     public void tallyScore() {
         Cell[] map;
-        map = GameWorld.getMap();
+        map = GameWorld.getWorld();
         int redFood = 0;
         int blackFood = 0;
         for (int i = 0; i < map.length; i++) {
