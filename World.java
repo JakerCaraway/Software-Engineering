@@ -17,17 +17,14 @@ import java.util.ArrayList;
  */
 class World {
 
-    //private ArrayList<Cell> World;
     private Cell Recursion1;
-    private int sizeX, sizeY;
+    public int sizeX, sizeY;
     private File worldFile;
     char[][] format;
+    String[] splitLines;
     
     public World(File worldFile){
         this.worldFile = worldFile;
-        //this.sizeX;// = sizeX;
-        //this.sizeY; //= sizeY;
-        //World = new ArrayList<>();
         CreateNewWorld();
     }
     
@@ -57,28 +54,30 @@ class World {
         Cell nextCell = null;
         for (int y = 0; y<designs.length;y++){
             if (y < sizeY-1){                    
-            if (y%2 !=0){
+            if (y%2 ==0){
                 nextCell = currentCell.getAdjacent(1);
             } else{
                 nextCell = currentCell.getAdjacent(2);
             }
             }
+            
             for (int x = 0; x<designs.length;x++){
                 if (designs[x][y] == '#'){
                     currentCell.setRocky();
                 }else if (designs[x][y] == '+'){
-                    currentCell.setAntHill("Red");
+                    currentCell.setAntHill("red");
                 }else if (designs[x][y] == '-'){
-                    currentCell.setAntHill("Black");
-                }else if (('0' <= designs[x][y]) && (designs[x][y] >= '9')){
+                    currentCell.setAntHill("black");
+                }else if (Character.isDigit(designs[x][y])){
                     currentCell.setFood(Character.getNumericValue(designs[x][y]));
-                if (x != designs.length -1)
-                    currentCell = currentCell.getAdjacent(3);
+                    }
+                if (x != designs.length -1){
+                    currentCell = currentCell.getAdjacent(0);
+                }
             }
             
             if (y < sizeY-1){
                 currentCell = nextCell;
-            }
             }
         }
     }
@@ -99,9 +98,6 @@ class World {
             br.close();             
             
             GetFormat(overall_line);
-            /*if (!checkBrain(overall_line)) {
-                System.out.println("Ant brain not compatible. REJECTED");
-            }*/
         } catch (IOException exception) {
             System.out.println("File incorrect. Can't load data");
         }
@@ -112,9 +108,9 @@ class World {
         Cell currentCell = Recursion1;
         Cell nextCell = null;
         for (int y = 0; y < sizeY; y++){
-            output += "/n";
+            output += "\n";
             if (y < sizeY-1){                    
-            if (y%2 !=0){
+            if (y%2 ==0){
                 nextCell = currentCell.getAdjacent(1);
             } else{
                 nextCell = currentCell.getAdjacent(2);
@@ -123,6 +119,7 @@ class World {
             }    
             for(int x = 0; x< sizeX; x++){
                 output += currentCell.toString() + " ";
+                currentCell = currentCell.getAdjacent(0);
             }
             if (y < sizeY-1){
                 currentCell = nextCell;
@@ -132,16 +129,17 @@ class World {
     }
 
     private void GetFormat(String overall_line) {
-        //String[] splitFile =
-        String whiteSpaceRemoved = overall_line.replaceAll("\\s+", "");
-        String[] splitLines = whiteSpaceRemoved.split("\n");
+        splitLines = overall_line.split("\n");
+        for(int i = 0; i<splitLines.length; i++){
+            splitLines[i] = splitLines[i].replaceAll("\\s+", "");
+        }
         if (splitLines.length>3){
         sizeX = Integer.parseInt(splitLines[0]);
         sizeY = Integer.parseInt(splitLines[1]);
         format = new char[sizeX][sizeY];
-        for (int i= 3; i<splitLines.length; i++){
+        for (int i= 2; i<splitLines.length; i++){
             for (int j = 0; j<splitLines[i].length();j++){
-                format[j][i] = splitLines[i].charAt(j);
+                    format[j][i-2] = splitLines[i].charAt(j);
                 }
             }
         }
