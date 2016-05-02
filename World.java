@@ -25,8 +25,8 @@ class World {
     
     public World(File worldFile){
         this.worldFile = worldFile;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+        //this.sizeX;// = sizeX;
+        //this.sizeY; //= sizeY;
         //World = new ArrayList<>();
         CreateNewWorld();
     }
@@ -128,6 +128,7 @@ class World {
                 currentCell = nextCell;
             }
         }
+        return output;
     }
 
     private void GetFormat(String overall_line) {
