@@ -25,6 +25,8 @@ public class Game {
     private String[] BlackFSM;
     private RandomInt NumberGen;
     private int RoundCount;
+    private int BlackScore;
+    private int RedScore;
 
     public Game(World GameWorld, Player RedPlayer, Player BlackPlayer) {
         this.RedPlayer = RedPlayer;
@@ -71,9 +73,9 @@ public class Game {
     }
 
     public String getWinner(){
-        if (RedPlayer.getScore() > BlackPlayer.getScore()){
+        if (RedScore > BlackScore){
             return "red";
-        } else if (BlackPlayer.getScore() > RedPlayer.getScore()){
+        } else if (BlackScore > RedScore{
             return "black";
         } else {
             return "draw";
@@ -149,11 +151,21 @@ public class Game {
                 redFood += map[i].getFood();
             }
         }
-        RedPlayer.setScore(redFood);
-        BlackPlayer.setScore(blackFood);
+        RedScore = redFood;
+        BlackScore = blackFood;
     }
     
-    public void run() {
+    public void run(){
+        runGame(rounds);
+    }
+    
+    public void runSection(int sections){
+        int iterations;
+        iterations = rounds/sections;
+        runGame(iterations);
+    }
+    
+    public void runGame(int iterations) {
         String currentColour;
         String[] currentFSM;
         int currentState;
@@ -165,7 +177,7 @@ public class Game {
         String foeColour;
 
         generateAnts();
-        for (int i = 0; i < rounds; i++) {
+        for (int i = 0; i < iterations; i++) {
             for (int j = 0; i < antNo; i++) {
                 currentAnt = Ants[j];
                 currentAnt.decrRest();
