@@ -75,7 +75,7 @@ public class Game {
     public String getWinner(){
         if (RedScore > BlackScore){
             return "red";
-        } else if (BlackScore > RedScore{
+        } else if (BlackScore > RedScore){
             return "black";
         } else {
             return "draw";
