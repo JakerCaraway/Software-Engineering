@@ -105,7 +105,7 @@ public class Cell {
         return AdjacentCells[side];
     }
     
-    private void setAdjacent(int side, Cell adj){
+    public void setAdjacent(int side, Cell adj){
         AdjacentCells[side] = adj;
     }
     
