@@ -16,10 +16,10 @@ public class Player {
     
     public Player(String name, AntBrain antBrainName){
         this.name = name;
-        this.antBrainName = antBrainName;
+        this.antBrainName = antBrainName;        
         score = 0;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -43,4 +43,6 @@ public class Player {
     public AntBrain getAntBrain(){
         return antBrainName;
     }
+
+
 }

@@ -39,7 +39,6 @@ public class Game {
         BlackFSM = BlackAntBrain.getFiniteStateMachine();
         RoundCount = 0;
         NumberGen = new RandomInt();
-        
     }
 
     public AntBrain getRedAntBrain() {
@@ -223,6 +222,8 @@ public class Game {
                         currentFSM = BlackFSM;
                     }
                     currentState = currentAnt.getState();
+                    if (currentState == -1)
+                        System.out.println("pause");
                     currentCommands = currentFSM[currentState].split("\\s");
                     command = currentCommands[0];
 
@@ -238,9 +239,9 @@ public class Game {
                                 currentAnt.getPosition().removeAnt();
                                 currentAnt.setPosition(currentAnt.getPosition().getAdjacent(direction));
                                 currentAnt.setRest();
-                                currentAnt.setState(Integer.parseInt(currentCommands[1])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[1]));
                             } else {
-                                currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             }
                             
                             break;
@@ -286,12 +287,12 @@ public class Game {
                                     }
                                     break;
                                 case "marker":
-                                    if (currentAnt.getPosition().getAdjacent(direction).checkPheromone(Integer.parseInt(currentCommands[4])-1, currentColour)){
+                                    if (currentAnt.getPosition().getAdjacent(direction).checkPheromone(Integer.parseInt(currentCommands[4]), currentColour)){
                                         found = true;
                                     }
                                     break;
                                 case "foemarker":
-                                    if (currentAnt.getPosition().getAdjacent(direction).checkPheromone(Integer.parseInt(currentCommands[4])-1, foeColour)){
+                                    if (currentAnt.getPosition().getAdjacent(direction).checkPheromone(Integer.parseInt(currentCommands[4]), foeColour)){
                                         found = true;
                                     }
                                     break;
@@ -309,22 +310,22 @@ public class Game {
                                     break;
                             }
                             if (found){
-                                currentAnt.setState(Integer.parseInt(currentCommands[1])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[1]));
                             } else {
-                                currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             }
                             break;
                         case "mark": //(marker, state)
                             //change current cell marker inputted to true
                             //state = state 1
-                            currentAnt.getPosition().setPheramone(Integer.parseInt(currentCommands[1])-1, currentColour);
-                            currentAnt.setState(Integer.parseInt(currentCommands[2])-1);                            
+                            currentAnt.getPosition().setPheramone(Integer.parseInt(currentCommands[1]), currentColour);
+                            currentAnt.setState(Integer.parseInt(currentCommands[2]));                            
                             break;
                         case "unmark": //(marker,state)
                             //change current cell marker inputted to false
                             //state = state 1
-                            currentAnt.getPosition().setPheramone(Integer.parseInt(currentCommands[1])-1, currentColour);
-                            currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                            currentAnt.getPosition().setPheramone(Integer.parseInt(currentCommands[1]), currentColour);
+                            currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             break;
                         case "pickup": //(state, state)
                             //check for food
@@ -332,16 +333,16 @@ public class Game {
                             //if false go to state 2
                             if (currentAnt.getPosition().getFood() > 0){
                                 currentAnt.PickUpFood();
-                                currentAnt.setState(Integer.parseInt(currentCommands[1])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[1]));
                             } else {
-                                currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             }
                             break;
                         case "drop": //(state)
                             //drop food held
                             //state = state 1
                             currentAnt.PutDownFood();
-                            currentAnt.setState(Integer.parseInt(currentCommands[1])-1);
+                            currentAnt.setState(Integer.parseInt(currentCommands[1]));
                             break;
                         case "turn": //(left or right, state)
                             //check if left or right is inputted
@@ -359,17 +360,18 @@ public class Game {
                                 default:
                                     break;
                             }
-                            currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                            currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             break;
                         case "flip": //(integer, state, state)
                             //get a random number 0 to integer inputted
                             //if 0 then state = state 1
                             //else state = state 2
-                            int rand = NumberGen.generateRand(Integer.parseInt(currentCommands[1]));
+                            int m = Integer.parseInt(currentCommands[1]);
+                            int rand = NumberGen.generateRand(m);
                             if (rand == 0){
-                                currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[2]));
                             } else { 
-                                currentAnt.setState(Integer.parseInt(currentCommands[3])-1);
+                                currentAnt.setState(Integer.parseInt(currentCommands[3]));
                             }
                             break;
                         default:

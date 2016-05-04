@@ -20,7 +20,8 @@ import javax.swing.event.ChangeListener;
  */
 
 /**
- *
+ * Class to create an interface between players and the model
+ * 
  * @author oab24
  */
 public class GameInterface extends javax.swing.JFrame {
@@ -28,6 +29,8 @@ public class GameInterface extends javax.swing.JFrame {
     Player player2;
     boolean gamerunning;
     File game_world;
+    
+    
     /**
      * Creates new form GameInterface
      */
@@ -37,10 +40,12 @@ public class GameInterface extends javax.swing.JFrame {
         player1 = null;
         player2= null;
         gamerunning = false;
-        
     }
     
-    // secondary initialisation of components
+    /**
+     * Secondary initialisation of components. Will create/ adjust many components in ways not easily manageable through the IDE 
+     * GUI maker
+     */
     private void initialiseComponents(){
         button_ChoosePlayer1Brain.setText("<html>Choose ant <br/>brain<html>");
         button_ChoosePlayer2Brain.setText("<html>Choose ant <br/>brain<html>");
@@ -97,14 +102,11 @@ public class GameInterface extends javax.swing.JFrame {
         
     }
     
-    /*
-    #        rocky cell
-.        clear cell (containing nothing interesting)
-+        red anthill cell
--        black anthill cell
-1 to 9   clear cell containing the given number of food particles*/
 
-    // runs the file getter for getting an ant brain. uses a subclass to return file and a string for error checking
+    /**
+     * Runs the file getter for an Ant brain. Will open a file chooser dialog to do so.
+     * @return The File_String object that contains both the FSM and the error message if the FSM did not pass the generation
+     */
     private File_String getAntBrainFile(){
         //Create a file chooser
         JFileChooser fc = new JFileChooser();
@@ -128,33 +130,55 @@ public class GameInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        button_mainMenu = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        button_chooseWorld = new javax.swing.JButton();
+        slide_fontSize = new javax.swing.JSlider();
+        label_MapFontSize = new javax.swing.JLabel();
+        speedSlider = new javax.swing.JSlider();
         panel_player1 = new javax.swing.JPanel();
         textField_PlayerRed = new javax.swing.JTextField();
         label_Player1Score = new javax.swing.JLabel();
         button_ChoosePlayer1Brain = new javax.swing.JButton();
+        label_roundsPerRefresh = new javax.swing.JLabel();
+        check_randomWorlds = new javax.swing.JCheckBox();
         panel_player2 = new javax.swing.JPanel();
         textField_PlayerBlack = new javax.swing.JTextField();
         label_Player2Score = new javax.swing.JLabel();
         button_ChoosePlayer2Brain = new javax.swing.JButton();
-        button_runGame = new javax.swing.JButton();
-        speedSlider = new javax.swing.JSlider();
-        label_winner = new javax.swing.JLabel();
-        button_chooseWorld = new javax.swing.JButton();
-        check_randomWorlds = new javax.swing.JCheckBox();
+        button_mainMenu = new javax.swing.JButton();
         scrollPane_WorldDisplay = new javax.swing.JScrollPane();
         label_worldDisplay = new javax.swing.JLabel();
-        slide_fontSize = new javax.swing.JSlider();
-        label_MapFontSize = new javax.swing.JLabel();
+        label_winner = new javax.swing.JLabel();
+        button_runGame = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        button_mainMenu.setText("Main Menu");
-        button_mainMenu.addActionListener(new java.awt.event.ActionListener() {
+        button_chooseWorld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_mainMenuActionPerformed(evt);
+                button_chooseWorldActionPerformed(evt);
             }
         });
+
+        slide_fontSize.setMajorTickSpacing(1);
+        slide_fontSize.setMaximum(6);
+        slide_fontSize.setMinimum(1);
+        slide_fontSize.setPaintLabels(true);
+        slide_fontSize.setPaintTicks(true);
+        slide_fontSize.setSnapToTicks(true);
+        slide_fontSize.setToolTipText("");
+        slide_fontSize.setValue(2);
+        slide_fontSize.setName("Map size changer"); // NOI18N
+
+        label_MapFontSize.setText("Map Font Size");
+
+        speedSlider.setMajorTickSpacing(1);
+        speedSlider.setMaximum(6);
+        speedSlider.setMinimum(1);
+        speedSlider.setPaintLabels(true);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setToolTipText("Higher numbers = more rounds pass before the map is updated again");
+        speedSlider.setValue(1);
 
         panel_player1.setBorder(javax.swing.BorderFactory.createTitledBorder("Player 1"));
         panel_player1.setName("Player 1"); // NOI18N
@@ -197,6 +221,15 @@ public class GameInterface extends javax.swing.JFrame {
                 .addComponent(button_ChoosePlayer1Brain)
                 .addContainerGap())
         );
+
+        label_roundsPerRefresh.setText("Rounds per refresh");
+
+        check_randomWorlds.setText("Random Worlds");
+        check_randomWorlds.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_randomWorldsActionPerformed(evt);
+            }
+        });
 
         panel_player2.setBorder(javax.swing.BorderFactory.createTitledBorder("Player 2"));
         panel_player2.setName("Player 1"); // NOI18N
@@ -246,32 +279,10 @@ public class GameInterface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        button_runGame.setText("Run Game");
-        button_runGame.addActionListener(new java.awt.event.ActionListener() {
+        button_mainMenu.setText("Main Menu");
+        button_mainMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_runGameActionPerformed(evt);
-            }
-        });
-
-        speedSlider.setMajorTickSpacing(1);
-        speedSlider.setMaximum(6);
-        speedSlider.setMinimum(1);
-        speedSlider.setPaintLabels(true);
-        speedSlider.setPaintTicks(true);
-        speedSlider.setValue(1);
-
-        label_winner.setText("Winner: ");
-
-        button_chooseWorld.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_chooseWorldActionPerformed(evt);
-            }
-        });
-
-        check_randomWorlds.setText("Random Worlds");
-        check_randomWorlds.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                check_randomWorldsActionPerformed(evt);
+                button_mainMenuActionPerformed(evt);
             }
         });
 
@@ -282,93 +293,114 @@ public class GameInterface extends javax.swing.JFrame {
         label_worldDisplay.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
         scrollPane_WorldDisplay.setViewportView(label_worldDisplay);
 
-        slide_fontSize.setMajorTickSpacing(1);
-        slide_fontSize.setMaximum(6);
-        slide_fontSize.setMinimum(1);
-        slide_fontSize.setPaintLabels(true);
-        slide_fontSize.setPaintTicks(true);
-        slide_fontSize.setSnapToTicks(true);
-        slide_fontSize.setToolTipText("");
-        slide_fontSize.setValue(2);
-        slide_fontSize.setName("Map size changer"); // NOI18N
+        label_winner.setText("Winner: ");
 
-        label_MapFontSize.setText("Map Font Size");
+        button_runGame.setText("Run Game");
+        button_runGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_runGameActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPane_WorldDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 1596, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(panel_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(panel_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(29, 29, 29))
+                            .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(label_winner))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(button_runGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(button_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(slide_fontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(check_randomWorlds)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(button_chooseWorld, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(19, 19, 19))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(label_MapFontSize))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_roundsPerRefresh)
+                        .addGap(79, 79, 79)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(panel_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(panel_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(label_MapFontSize)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(slide_fontSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(button_chooseWorld, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(check_randomWorlds)
+                                .addGap(8, 8, 8)))
+                        .addGap(37, 37, 37)
+                        .addComponent(label_roundsPerRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(label_winner)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_runGame, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(button_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addComponent(scrollPane_WorldDisplay, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPane_WorldDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 1598, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(panel_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(panel_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29))
-                            .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(63, 63, 63)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(16, 16, 16)
-                                        .addComponent(label_winner))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(button_runGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(button_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(slide_fontSize, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(check_randomWorlds)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(button_chooseWorld, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(19, 19, 19))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(label_MapFontSize)))
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1884, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(panel_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(panel_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
-                .addComponent(label_MapFontSize)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(slide_fontSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button_chooseWorld, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(check_randomWorlds)
-                        .addGap(8, 8, 8)))
-                .addGap(57, 57, 57)
-                .addComponent(speedSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(label_winner)
-                .addGap(18, 18, 18)
-                .addComponent(button_runGame, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(button_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPane_WorldDisplay)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // sets actions of pressing the main menu button
+    /**
+     * Even upon the main menu being pressed. Will return the user to the main menu and crash the 
+     * @param evt the event of the main menu button being pressed.
+     */
     private void button_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_mainMenuActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -477,10 +509,11 @@ public class GameInterface extends javax.swing.JFrame {
             World w;            
             if (game_world == null && check_randomWorlds.isSelected()){
                 w = new World(null);                
-                //w.randomWorld();
+                w.getRandomWorld(150,150);
             } else if (game_world == null){
                 JOptionPane.showMessageDialog(rootPane, "There is no world selected. Please either turn random worlds on\n or select your own world");
             }else{
+                label_winner.setText("");                
                 gamerunning = true;
                 w = new World(game_world);       
                 // construct game instance
@@ -489,14 +522,55 @@ public class GameInterface extends javax.swing.JFrame {
                 String map = w.GetCurrentWorld();
                 label_worldDisplay.setText(map);
                 label_worldDisplay.setVisible(true);
-                int speed = speedSlider.getValue();
+                int speed = getActualSpeed();
+                /*
+                Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {      
+                            for (int i = 0; i < (300000/speed);i++ ){
+                                game_instance.runSection(speed);       
+                                System.out.println("The game has run round " + Integer.toString(i)+ " of " + Integer.toString(300000/speed));
+                                String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                                label_worldDisplay.setText(s2);                   
+                                System.out.println("ui_updated");
+                            }   
+                            
+                        }     
+                    });
+                t.run();*/
                 for (int i = 0; i < (300000/speed);i++ ){
-                    game_instance.runSection(speed);                    
+                    game_instance.runSection(speed);       
+                    System.out.println("The game has run round " + Integer.toString(i)+ " of " + Integer.toString(300000/speed));
+                    String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                    label_worldDisplay.setText(s2);                   
+                    System.out.println("ui_updated");
+                }
+                
+                 /*
                     map = game_instance.getGameWorld().GetCurrentWorld();
                     String s2 = setupWorldForDisplay(map);
+
+                  //  label_worldDisplay.setVisible(false);
+                    label_worldDisplay.setText("");
                     label_worldDisplay.setText(s2);                    
                     label_worldDisplay.updateUI();
+                            */
+                
+                int count_red= 0;
+                int count_black = 0;
+                for (int i =0; i <254;i++){
+                    if ( game_instance.Ants[i].getColour().equals("red") ) 
+                        count_red = count_red+1;
+                    else
+                        count_black = count_black +1;
                 }
+                
+                String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                label_worldDisplay.setText(s2);
+                    
+                    
+                    
+                System.out.println("The game has finished the match");
                 String s = game_instance.getWinner();
                 if (s.equals("red")){
                     player1.incrScore();
@@ -517,6 +591,27 @@ public class GameInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_runGameActionPerformed
 
+    
+    private int getActualSpeed(){
+        int speed = speedSlider.getValue();
+        switch (speed){
+                case 1: 
+                    return 1;
+                case 2:
+                    return 10;
+                case 3:
+                    return 50;
+                case 4:
+                    return 100;
+                case 5:
+                    return 1000;
+                case 6:
+                    return 10000;
+                default:
+                    return 1;
+        }
+    }
+    
     // sets up the choose world funciton. Will use a file chooser to get the file
     private void button_chooseWorldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_chooseWorldActionPerformed
         JFileChooser fc = new JFileChooser();        
@@ -553,12 +648,6 @@ public class GameInterface extends javax.swing.JFrame {
         String[] sA = s.split("\n");
             String s2 = "";
             for (int i =0; i < sA.length; i++){
-                /*
-                sA[i] = sA[i].replaceAll("\\. ", "\\.  ");
-                sA[i] = sA[i].replace("+ ", ".  ");
-                sA[i] = sA[i].replace("- ", ".  ");
-                sA[i] = sA[i].replace("R ", ".  ");
-                sA[i] = sA[i].replace("B ", ".  ");*/
                 if (i%2== 0)                    
                     s2 = s2 + sA[i] + "<br/>";
                 else
@@ -574,9 +663,12 @@ public class GameInterface extends javax.swing.JFrame {
     private javax.swing.JButton button_mainMenu;
     private javax.swing.JButton button_runGame;
     private javax.swing.JCheckBox check_randomWorlds;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel label_MapFontSize;
     private javax.swing.JLabel label_Player1Score;
     private javax.swing.JLabel label_Player2Score;
+    private javax.swing.JLabel label_roundsPerRefresh;
     private javax.swing.JLabel label_winner;
     private javax.swing.JLabel label_worldDisplay;
     private javax.swing.JPanel panel_player1;

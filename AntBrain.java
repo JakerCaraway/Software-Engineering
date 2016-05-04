@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 
+
 /**
  *IMPORTANT NOTES:
  * can NOT set brain directly. 
@@ -16,11 +17,29 @@ import java.io.Reader;
  */
 public class AntBrain {
     private String[] finiteStateMachine;
+    private String errorMessage;
 
+    /**
+     * Gets the current Finite State Machine the ant brain uses. Returns null if the brain is invalid
+     * @return A string Array of all the correct commands in a different cell of the array
+     */
     public String[] getFiniteStateMachine() {
         return finiteStateMachine;
     }    
     
+    /**
+     * gets the error message that has been stored about why the brain went wrong. Blank or null if there is no error
+     * @return the error message about why the code is wrong. 
+     */
+    public String getErrorMessage(){
+        return errorMessage;
+    }
+    
+    /**
+     * Constructor for the ant brain that uses a file as the parameter. Will then check syntax and store correct error messages or FSM respectively
+     * @param antBrainFile a file object that stores the ant Brain 
+     * @throws FileNotFoundException 
+     */
     public AntBrain(File antBrainFile) throws FileNotFoundException {
         //FileReader fileReader = new FileReader(antBrainFile);
         try {           
@@ -41,18 +60,26 @@ public class AntBrain {
                 System.out.println("Ant brain not compatible. REJECTED");
             }
         } catch (IOException exception) {
-            System.out.println("File incorrect. Can't load data");
+            errorMessage =("File incorrect. Can't load data");
         }
     }
     
+    /**
+     * Constructor for the ant brain that takes a string as input. 
+     * @param antBrainString The string that is the Finite State Machine
+     */
     public AntBrain(String antBrainString) {
         if (!checkBrain(antBrainString)){
             System.out.println("Ant brain not compatible. REJECTED");
         }           
     }
     
-    // MUST be set to private once testing concluded
-    private boolean checkBrain (String checkString){
+    /**
+     * Checks the overall brain. Will split up the FSM into seperate states and commands
+     * @param checkString
+     * @return 
+     */
+    public boolean checkBrain (String checkString){
         String[] splitFile = checkString.split("\n");
         boolean whileChecker = true;
         int i = 0;
@@ -67,11 +94,10 @@ public class AntBrain {
         return whileChecker;
     }
     
-    // MUST be set to private once testing concluded
-    private boolean checkLine(String inString){
+    public boolean checkLine(String inString){
         // check if the instruction is of the right format
         if (!inString.matches("([a-zA-Z]+(\\s.*)*\\n?)")){
-            System.out.println ("incorrect format for instruction: "+ inString);
+            errorMessage =("incorrect format for instruction: "+ inString);
             return false;
         } else {
             String inStrings[] = inString.split("(\\s)");
@@ -111,19 +137,19 @@ public class AntBrain {
                                 checkInstructionParameters = checkInstructionParameters && inStrings[1].matches("[0-9]+");
                                 break;
                         default: 
-                                System.out.println("Instruction not a valid instruction to use: "+ inString);
+                                errorMessage =("Instruction not a valid instruction to use: "+ inString);
                                 b = false;
                                 break;
                 }                            
             } catch (ArrayIndexOutOfBoundsException exception) {
                 checkInstructionParameters = false;
-                System.out.println("not enough inputs for line: " + inString);
+                errorMessage =("not enough inputs for line: " + inString);
             }
             return checkInstructionParameters;
         }
     }
 
-    private boolean checkConditions(String conditionToCheck){
+    public boolean checkConditions(String conditionToCheck){
         boolean validWord = false;
         // case the valid directions
         switch (conditionToCheck.toLowerCase()) {
@@ -165,7 +191,7 @@ public class AntBrain {
     }
     
     // used to find if the direction entered is valid
-    private boolean checkDirection(String wordToCheck){
+    public boolean checkDirection(String wordToCheck){
         boolean validWord = false;
         // case the valid directions
         switch (wordToCheck.toLowerCase()) {
@@ -189,7 +215,7 @@ public class AntBrain {
     }
         
     // state passed in is now in pieces, need to check what the states after were
-    private boolean checkNumbers(String numToCheck, int rangeLower, int rangeUpper){
+    public boolean checkNumbers(String numToCheck, int rangeLower, int rangeUpper){
         Boolean checkBool = true;       
         // check string number
         if (!numToCheck.matches("[0-9]+")) // 0-9999 states, therefore can repeat numbers up to 4 times

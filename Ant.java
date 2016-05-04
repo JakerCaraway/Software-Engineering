@@ -10,7 +10,7 @@ package AntGame;
  *
  * @author mjc53
  */
-class Ant {
+public class Ant {
     private String colour;
     boolean alive;
     Cell position;

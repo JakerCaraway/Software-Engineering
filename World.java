@@ -16,7 +16,7 @@ import java.util.Random;
  *
  * @author mjc53
  */
-class World {
+public class World {
 
     private Cell Recursion1;
     public int sizeX, sizeY;

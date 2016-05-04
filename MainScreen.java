@@ -74,12 +74,20 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Switches to the tournament interface
+     * @param evt tournament button is pressed
+     */
     private void button_TournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_TournamentActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         new TournamentInterface().setVisible(true);
     }//GEN-LAST:event_button_TournamentActionPerformed
 
+    /**
+     * Switches to the match interface
+     * @param evt single match button pressed
+     */
     private void button_SingleMatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_SingleMatchActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -122,11 +130,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void show_window(){
         
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_SingleMatch;

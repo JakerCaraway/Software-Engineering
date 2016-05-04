@@ -55,22 +55,6 @@ public class Tournament {
                  Game game2 = new Game(world,b,a); //Create a second match with players playing different colour
                  game1.run();
                  game2.run();
-                 if (game1.getWinner() == "red")
-                 {
-                     a.incrScore();
-                 }
-                 if (game1.getWinner() == "black")
-                 {
-                     b.incrScore();
-                 }
-                 if (game2.getWinner() == "red")
-                 {
-                     b.incrScore();
-                 }                
-                 if (game2.getWinner() == "black")
-                 {
-                     a.incrScore();
-                 }
              }
           }
       checkWinner();
