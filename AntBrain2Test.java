@@ -28,6 +28,10 @@ public class AntBrain2Test {
         test_brain = new AntBrain (string_dudBrain_simple);
     }
     
+    /**
+     *  tests overall ability to load both a string and from a file. Specific file paths are used here, so if used in a different place, the paths need changing 
+     *  All tests passed when on original system (04/05/2016
+     */
     @Test
     public void test_createBrains(){
         AntBrain brain_string = new AntBrain("move 1 2\nPickUp 1 3\nturn left 1\n");
@@ -45,6 +49,9 @@ public class AntBrain2Test {
         }
     }
     
+    /**
+     * tests for when the check function is passed an FSM with several lines of commands
+     */
     @Test
     public void test_checkBrain(){
         String command = ("");
@@ -53,7 +60,9 @@ public class AntBrain2Test {
         assertTrue(test_brain.checkBrain("move 1 2\nPickUp 1 3\nturn left 1\n"));
     }
     
-    
+    /**
+     * checks if the syntax of several individual commands is correct
+     */
     @Test
     public void test_checkLine(){
         assertFalse(test_brain.checkLine("dummy"));
@@ -71,6 +80,9 @@ public class AntBrain2Test {
         assertFalse(test_brain.checkLine(" move 1 2")); // fails as whitespace before the instruction
     }
     
+    /**
+     * checks if the numbers used in the state changes run in the correct ranges
+     */
     @Test
     public void test_CheckNumbers(){
         assertFalse(test_brain.checkNumbers("", 0, 9999)); // empty

@@ -75,9 +75,9 @@ public class AntBrain {
     }
     
     /**
-     * Checks the overall brain. Will split up the FSM into seperate states and commands
-     * @param checkString
-     * @return 
+     * Checks the overall brain. Will split up the FSM into separate states and commands
+     * @param checkString the string of the FSM to be checked
+     * @return true if the brain is accepted, false if not
      */
     public boolean checkBrain (String checkString){
         String[] splitFile = checkString.split("\n");
@@ -94,6 +94,11 @@ public class AntBrain {
         return whileChecker;
     }
     
+    /**
+     * Checks individual lines of the Finite State Machine for correct Syntax. Will store any error message internally
+     * @param inString The single line that represents the command to be implemented 
+     * @return true if the command is valid, false if not
+     */
     public boolean checkLine(String inString){
         // check if the instruction is of the right format
         if (!inString.matches("([a-zA-Z]+(\\s.*)*\\n?)")){
@@ -149,6 +154,11 @@ public class AntBrain {
         }
     }
 
+    /**
+     * checks if the conditions for sense are of the correct format
+     * @param conditionToCheck the single word condition to check
+     * @return true if valid, false if not
+     */
     public boolean checkConditions(String conditionToCheck){
         boolean validWord = false;
         // case the valid directions
@@ -190,7 +200,11 @@ public class AntBrain {
         return validWord;
     }
     
-    // used to find if the direction entered is valid
+    /**
+     * Checks if a direction condition is valid. There are only a limited number of valid direction
+     * @param wordToCheck the word that represents the direction that is to be checked
+     * @return true if the word is valid, else false
+     */
     public boolean checkDirection(String wordToCheck){
         boolean validWord = false;
         // case the valid directions
@@ -215,6 +229,14 @@ public class AntBrain {
     }
         
     // state passed in is now in pieces, need to check what the states after were
+    
+    /**
+     * Checks if numbers are not only numbers but also in the correct range (inclusive)
+     * @param numToCheck the number that needs to be checked
+     * @param rangeLower the lower range that it can reach
+     * @param rangeUpper the upper range that a number can be
+     * @return true if number is in range (inclusive), otherwise false
+     */
     public boolean checkNumbers(String numToCheck, int rangeLower, int rangeUpper){
         Boolean checkBool = true;       
         // check string number
