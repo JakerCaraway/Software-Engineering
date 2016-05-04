@@ -35,10 +35,8 @@ public class Tournament {
 //Create a tournament
   public Tournament(ArrayList<Player> player, World world)
   {  
-       for(Player p : player )
-       {
-         this.world = world;
-       }
+       players = player;
+       this.world = world;
        
   }
   
