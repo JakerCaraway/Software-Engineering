@@ -19,7 +19,7 @@ public class Game {
     private AntBrain BlackAntBrain;
     private Player RedPlayer;
     private Player BlackPlayer;
-    private Ant[] Ants;
+    public Ant[] Ants;
     private World GameWorld;
     private String[] RedFSM;
     private String[] BlackFSM;
@@ -209,7 +209,7 @@ public class Game {
         if (Ants[0] == null)
             generateAnts();        
         for (int i = 0; i < iterations; i++) {
-            for (int j = 0; i < antNo; i++) {
+            for (int j = 0; j < antNo; j++) {
                 currentAnt = Ants[j];
                 currentAnt.decrRest();
                 if (currentAnt.getRest() == 0 && currentAnt.getAlive()) {
@@ -364,7 +364,7 @@ public class Game {
                             //get a random number 0 to integer inputted
                             //if 0 then state = state 1
                             //else state = state 2
-                            int rand = NumberGen.generateRand(Integer.parseInt(currentCommands[1])-1);
+                            int rand = NumberGen.generateRand(Integer.parseInt(currentCommands[1]));
                             if (rand == 0){
                                 currentAnt.setState(Integer.parseInt(currentCommands[2])-1);
                             } else { 
