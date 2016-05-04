@@ -144,6 +144,7 @@ public class Game {
                     Ants[antCount] = newAnt;
                     antCount++;
                 }
+                currentCell = currentCell.getAdjacent(0);
             }
             if (y < GameWorld.sizeY-1){
                 currentCell = nextCell;
@@ -172,6 +173,7 @@ public class Game {
                 } else if (currentCell.checkAntHill("red")) {
                     redFood += currentCell.getFood();
                 }
+                currentCell = currentCell.getAdjacent(0);
             }
             if (y < GameWorld.sizeY-1){
                 currentCell = nextCell;
