@@ -24,12 +24,18 @@ public class World {
     char[][] format;
     String[] splitLines;
     
+    /**
+     * constructor for the linked list of cells known as the world
+     * @param worldFile the world format from a text file if selected 
+     */
     public World(File worldFile){
         this.worldFile = worldFile;
         if (worldFile != null)
             CreateNewWorld();  
     }
-    
+    /**
+     * steps necessary for world generation
+     */
     public void CreateNewWorld()
     {        
         ReadWorld(worldFile);
@@ -38,10 +44,19 @@ public class World {
         formatWorld(format);
     }
     
+    /**
+     * gets the start point of the world
+     * @return the cell at 1,1 which in the spec should be 0,0
+     */
     public Cell getWorld(){
         return Recursion1;
     }
     
+    /**
+     * method to allow ants to identify the 'other' team
+     * @param colour the team colour of an ant
+     * @return the other teams colour
+     */
     public String getOtherColour(String colour) {
         if (colour == "red"){
             return "black";
@@ -50,16 +65,17 @@ public class World {
         } else return "none";
     }
     
+    /**
+     * randomly generates a world and its features.
+     * @param x the size of the world to make in the x axis
+     * @param y the size of the world to make in the y axis
+     * @return string representation of the world
+     */
     public String getRandomWorld(int x, int y){
         String output;
         output = x + "\n";
         output += y + "\n";
         Random rn = new Random();
-        
-        //each food blob run one at a time assign to a set of clean co-ordinate 10 in size
-        //assign to each a box and spawn at square points and remove a number once used
-        //then assign anthills a 2 by 2 cell
-        //cells numbered 0 - 14
         
         int redAntSector = rn.nextInt(24);
         int blackAntSector = rn.nextInt(24);
@@ -99,31 +115,6 @@ public class World {
             foodSectors_y[i] = (foodSector[i]/5) * 30; 
         }
         
-        
-        /*
-               int blackAnt_hill_x = rn.nextInt(x-15);
-        int blackAnt_hill_y = rn.nextInt(y-15);
-        
-        int[] foodBlobs_x = new int[11];
-        int[] foodBlobs_y = new int[11];
-        for (int i = 0; i<11; i++){
-            foodBlobs_x[i] = rn.nextInt(x-7) + 1;
-            foodBlobs_y[i] = rn.nextInt(x-7) + 1;
-            while (((foodBlobs_x[i] >= blackAnt_hill_x-8) && (foodBlobs_x[i] <= blackAnt_hill_x + 14 ))  ||
-                    ((foodBlobs_y[i] >= blackAnt_hill_x-8) && (foodBlobs_x[i] <= blackAnt_hill_y + 14 )) ||
-                    ((foodBlobs_x[i] >= redAnt_hill_x-8) && (foodBlobs_x[i] <= redAnt_hill_x + 14 )) ||
-                    ((foodBlobs_y[i] >= redAnt_hill_x-8) && (foodBlobs_x[i] <= redAnt_hill_y + 14 ))
-                    ) 
-                    
-                foodBlobs_x[i] = rn.nextInt(x-7) + 1;
-                foodBlobs_y[i] = rn.nextInt(x-7) + 1;
-            }           
-        
-        while ((blackAnt_hill_x >= redAnt_hill_x-15) && (blackAnt_hill_x <= redAnt_hill_x + 14))
-             blackAnt_hill_x = rn.nextInt(x-15);
-        while ((blackAnt_hill_y >= redAnt_hill_y-15) && (blackAnt_hill_y <= redAnt_hill_y + 14))
-             blackAnt_hill_y = rn.nextInt(y-15);
-        */
         char[][] outputArray = new char[y][x];
         
         for(int i = 0; i<y; i++){
@@ -213,10 +204,17 @@ public class World {
             } 
             output += '\n';
         }
-        
+        GetFormat(output);
+        Recursion1 = new Cell(1,1);
+        Recursion1.MakeMap(sizeX,sizeY);
+        formatWorld(format);
         return output;
     }
     
+    /**
+     * 
+     * @param designs the blueprint of the world to be assigned to the cells 
+     */
     //not certain the numbers here work quite right have to test
     private void formatWorld(char[][] designs) {
         Cell currentCell = Recursion1;
@@ -251,6 +249,10 @@ public class World {
         }
     }
 
+    /**
+     * reads the file given to it in the construtor
+     * @param worldFile the file to read
+     */
     private void ReadWorld(File worldFile) {
         try {           
             FileReader fileReader;
@@ -272,6 +274,10 @@ public class World {
         }
     }
     
+    /**
+     * method to call if you need the string representation of the world
+     * @return the string representation of the world 
+     */
     public String GetCurrentWorld(){
         String output = "";
         Cell currentCell = Recursion1;
@@ -297,6 +303,10 @@ public class World {
         return output;
     }
 
+    /**
+     * takes the string from the file/generator and formats it into the 2D array format that is needed for the rest of the program
+     * @param overall_line string extracted for use in blueprinting the world 
+     */
     private void GetFormat(String overall_line) {
         splitLines = overall_line.split("\n");
         for(int i = 0; i<splitLines.length; i++){

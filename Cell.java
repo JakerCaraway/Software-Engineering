@@ -109,6 +109,11 @@ public class Cell {
         AdjacentCells[side] = adj;
     }
     
+    /**
+     * Recursive function for the creation of the world/map using a linked list structure(not my best idea ever)
+     * @param SizeX total size of the world in the x axis
+     * @param SizeY total size of the world in the y axis
+     */
     public void MakeMap(int SizeX,int SizeY){
         if (x<SizeX && y<SizeY){
             Cell newCell0;
@@ -180,7 +185,10 @@ public class Cell {
             }
         }
     }
-    
+    /**
+     * overrided toString method to allow for correct representation of the map/world
+     * @return the string representation of the cell(its most important feature) 
+     */
     @Override
     public String toString(){
         if (getRocky()){
