@@ -38,6 +38,7 @@ public class Game {
         RedFSM = RedAntBrain.getFiniteStateMachine();
         BlackFSM = BlackAntBrain.getFiniteStateMachine();
         RoundCount = 0;
+        NumberGen = new RandomInt();
         
     }
 
