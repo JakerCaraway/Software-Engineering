@@ -144,7 +144,11 @@ public class Game {
                     Ants[antCount] = newAnt;
                     antCount++;
                 }
-                currentCell = currentCell.getAdjacent(0);
+                try {
+                    currentCell = currentCell.getAdjacent(0);
+                } catch (NullPointerException e){
+                    //System.out.println("end of line");
+                }
             }
             if (y < GameWorld.sizeY-1){
                 currentCell = nextCell;
