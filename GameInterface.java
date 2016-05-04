@@ -398,7 +398,7 @@ public class GameInterface extends javax.swing.JFrame {
 
     // sets actions of pressing the main menu button
     /**
-     * Even upon the main menu being pressed. Will return the user to the main menu and crash the 
+     * Event upon the main menu being pressed. Will return the user to the main menu and clear the game from memory.
      * @param evt the event of the main menu button being pressed.
      */
     private void button_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_mainMenuActionPerformed
@@ -407,7 +407,11 @@ public class GameInterface extends javax.swing.JFrame {
         MainScreen.main_screen.setVisible(true);        
     }//GEN-LAST:event_button_mainMenuActionPerformed
 
-     // sets the actions of the choose player 1 brain - comnstructs player 1 object
+    /**
+     * Will create the player 1 object. If there is a player in the textField, will call a file chooser that will load an ant brain. 
+     * If the new player would have the same name as the current player, replaces the ant brain only.
+     * @param evt the choose player 1 brain button is pressed
+     */
     private void button_ChoosePlayer1BrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ChoosePlayer1BrainActionPerformed
         // if the player already exists
         if  ( (player1 != null) &&(player1.getName().equals(textField_PlayerRed.getText())) ){
@@ -451,7 +455,11 @@ public class GameInterface extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_button_ChoosePlayer1BrainActionPerformed
 
-    // sets the actions of the choose player 2 brain - comnstructs player 2 object
+    /**
+     * Will create the player 2 object. If there is a player in the textField, will call a file chooser that will load an ant brain. 
+     * If the new player would have the same name as the current player, replaces the ant brain only.
+     * @param evt the choose player 2 brain button is pressed
+     */
     private void button_ChoosePlayer2BrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_ChoosePlayer2BrainActionPerformed
         if  ( (player2 != null) &&(player2.getName().equals(textField_PlayerBlack.getText())) ){
             try {
@@ -500,6 +508,12 @@ public class GameInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_textField_PlayerBlackActionPerformed
 
     // sets the actions of run game button
+    /**
+     * If the use random world box is checked, will run a random world, otherwise the loaded world. Will then run the simulation for the number of rounds
+     * Should update the UI every time the rounds in run, however this has not been implemented
+     * Uses winner label to display the result of the match
+     * @param evt the run Game being clicked
+     */
     private void button_runGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_runGameActionPerformed
         // TODO add your handling code here:
         if (player1==null || player2 ==null){ 
@@ -524,6 +538,7 @@ public class GameInterface extends javax.swing.JFrame {
                 label_worldDisplay.setVisible(true);
                 int speed = getActualSpeed();
                 /*
+                // Attempts to get the UI updating each round
                 Thread t = new Thread(new Runnable() {
                         @Override
                         public void run() {      
@@ -541,35 +556,15 @@ public class GameInterface extends javax.swing.JFrame {
                 for (int i = 0; i < (300000/speed);i++ ){
                     game_instance.runSection(speed);       
                     System.out.println("The game has run round " + Integer.toString(i)+ " of " + Integer.toString(300000/speed));
+                    // UI should update here at each round, however does not. 
+                    //Suspect that it is a threading issue of event action, main process and update UI trying to run at the same time
                     String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
                     label_worldDisplay.setText(s2);                   
                     System.out.println("ui_updated");
                 }
                 
-                 /*
-                    map = game_instance.getGameWorld().GetCurrentWorld();
-                    String s2 = setupWorldForDisplay(map);
-
-                  //  label_worldDisplay.setVisible(false);
-                    label_worldDisplay.setText("");
-                    label_worldDisplay.setText(s2);                    
-                    label_worldDisplay.updateUI();
-                            */
-                
-                int count_red= 0;
-                int count_black = 0;
-                for (int i =0; i <254;i++){
-                    if ( game_instance.Ants[i].getColour().equals("red") ) 
-                        count_red = count_red+1;
-                    else
-                        count_black = count_black +1;
-                }
-                
                 String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
                 label_worldDisplay.setText(s2);
-                    
-                    
-                    
                 System.out.println("The game has finished the match");
                 String s = game_instance.getWinner();
                 if (s.equals("red")){
@@ -592,6 +587,10 @@ public class GameInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_button_runGameActionPerformed
 
     
+    /**
+     * used to get the speeds that the speed slider represents. This is because the actual values correspond to labels which are tricky to obtain
+     * @return the speed that the slider variable represents.
+     */
     private int getActualSpeed(){
         int speed = speedSlider.getValue();
         switch (speed){
@@ -612,7 +611,10 @@ public class GameInterface extends javax.swing.JFrame {
         }
     }
     
-    // sets up the choose world funciton. Will use a file chooser to get the file
+    /**
+     * Method used when Choose world button is pressed. Uses a file chooser to load a file that should contain a valid world.
+     * @param evt the "choose world" button is pressed
+     */
     private void button_chooseWorldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_chooseWorldActionPerformed
         JFileChooser fc = new JFileChooser();        
         int returnVal = fc.showOpenDialog(this);
@@ -632,6 +634,10 @@ public class GameInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_button_chooseWorldActionPerformed
 
     // sets up action of the check box for random world
+    /**
+     * handler for what happens if the random worlds check box is inverted. Will grey out the choose world button if the check box is true
+     * @param evt the action of pressing the check box
+     */
     private void check_randomWorldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_randomWorldsActionPerformed
         // TODO add your handling code here:
         if (check_randomWorlds.isSelected()){
@@ -643,6 +649,11 @@ public class GameInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_check_randomWorldsActionPerformed
    
     // function to format the world string so it can be displayed properly
+    /**
+     * function to format the world string so it can be displayed properly using a JLabel.
+     * @param s The world string that is passed in
+     * @return The converted world String 
+     */
     private String setupWorldForDisplay(String s){
         s = "<html>"+s+"<html>";
         String[] sA = s.split("\n");
@@ -680,20 +691,35 @@ public class GameInterface extends javax.swing.JFrame {
     private javax.swing.JTextField textField_PlayerRed;
     // End of variables declaration//GEN-END:variables
     
-    // subclass that stores a file and a string
+    /**
+     * a class that is used to store both a File and a string into 1 entity for an easy return.
+     */
     private class File_String{
         private File f;
         private String s;        
 
+        /**
+         * create the object
+         * @param f the file to be passed
+         * @param s the string to be passed
+         */
         public File_String(File f, String s) {
             this.f = f;
             this.s = s;            
         }
 
+        /**
+         * gets the file stored
+         * @return the file stored
+         */
         public File getF() {
             return f;
         }
 
+        /**
+         * gets the string stored
+         * @return the string stored
+         */
         public String getS() {
             return s;
         }  

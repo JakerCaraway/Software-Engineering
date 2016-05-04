@@ -40,6 +40,9 @@ public class TournamentInterface extends javax.swing.JFrame {
     }
     
     // seconday component initialisation
+    /**
+     * Secondary component initialisation for actions trickier to set up in the GUI IDE maker
+     */
     private void initialiseComponents() {
         button_chooseNewPlayerBrain.setText("<html>Add new<br/>Player<html>");
         button_deletePlayer.setText("<html>Delete<br/>Player<html>");
@@ -354,13 +357,21 @@ public class TournamentInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // main menu button funcitons. Closes the tournament interface, freeing everything to memory
+    /**
+     * Main menu button mover. Will result in signing the tournament and entire interface to free memory.
+     * @param evt Main menu button is pressed
+     */
     private void button_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_mainMenuActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);        
         MainScreen.main_screen.setVisible(true);
     }//GEN-LAST:event_button_mainMenuActionPerformed
 
-    // sets up the choose player action. Will create a new player to be put into the table
+    /**
+     * Choose new player button. Will create a new player Entity using the name in the text field. will then use a file chooser to select the ant brain. Finally will combine player with a "false" boolean variable to 
+     * store as a player_boolean class. Stores this in the table and table model.
+     * @param evt the choose player button is pressed
+     */
     private void button_chooseNewPlayerBrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_chooseNewPlayerBrainActionPerformed
         // create a new player
         if (!textField_addPlayer.getText().equals("")){        
@@ -391,13 +402,20 @@ public class TournamentInterface extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_button_chooseNewPlayerBrainActionPerformed
 
-    // delets the highlighted player from the table
+    /**
+     * Will delete the currently selected player from the table
+     * @param evt delete player button is pressed
+     */
     private void button_deletePlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_deletePlayerActionPerformed
         // TODO add your handling code here:
         ((SETableModle)table_players.getModel()).deletePlayer();
     }//GEN-LAST:event_button_deletePlayerActionPerformed
 
     // runs the tournament using the selected world
+    /**
+     * runs the tournament using the currently selected players and the currently used world. Will throw error messages if there arent enough players or the world isnt selected.
+     * @param evt the run tournament button is pressed
+     */
     private void button_runTournamentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_runTournamentActionPerformed
         // TODO add your handling code here:
         ArrayList<Player> playersToCompte = new ArrayList<>();            
@@ -408,6 +426,8 @@ public class TournamentInterface extends javax.swing.JFrame {
         }
         if (playersToCompte.size() < 2){
             JOptionPane.showMessageDialog(rootPane, "There needs to be 2 or more players for a tournament to take place");
+        }else if (game_world == null) {
+            JOptionPane.showMessageDialog(rootPane, "There needs to be a world chosen");
         } else {
             Tournament t = new Tournament(playersToCompte, game_world);
             ( (SETableModle)table_players.getModel() ).sort();        
@@ -415,8 +435,11 @@ public class TournamentInterface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_runTournamentActionPerformed
 
-    // sets up the action for when a world is selected. loads a world using a world file that is selected
-    // using a file chooser
+    /**
+     * sets up the action for when a world is selected. loads a world using a world file that is selected
+     * using a file chooser
+     * @param evt select world button is pressed
+     */
     private void button_selectWorldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_selectWorldActionPerformed
         // TODO add your handling code here:
         JFileChooser fc = new JFileChooser();        
@@ -445,10 +468,24 @@ public class TournamentInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_button_selectWorldActionPerformed
 
     // sets up what the random world action does
+    /**
+     * generates a random world to be used in the tournament. This is displayed ready to be inspected for the tournament.
+     * @param evt the generate random world button is pressed
+     */
     private void button_randomWorldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_randomWorldActionPerformed
         World w = new World(null);
         w.getRandomWorld(150,150);
-        label_worldDiagram.setText(w.GetCurrentWorld());
+        String s = w.GetCurrentWorld();
+            s = "<html>"+s+"<html>";
+            String[] sA = s.split("\n");
+            s = "";
+            for (int i =0; i < sA.length; i++){
+                if (i%2== 0)
+                    s = s + sA[i] + "<br/>";
+                else
+                    s = s + " " + sA[i] + "<br/>";
+            }
+        label_worldDiagram.setText(s);
         label_worldDiagram.setVisible(true);
         game_world = w;
     }//GEN-LAST:event_button_randomWorldActionPerformed
@@ -476,11 +513,10 @@ public class TournamentInterface extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     
-    // sub class for the table model. normal extensions but also includes some get methods to directly
-    // interact with the underlying data structure. data structure is an arraylist of type player_boolean
-    class SETableModle extends AbstractTableModel{
-        
-        
+    /**
+     * a subclass that is the table model to be used for the data about players. Used to store the underlying data 
+     */
+    class SETableModle extends AbstractTableModel{    
         private ArrayList<player_boolean> players = new ArrayList<>();
         private String[] columnNames = {"Player", "Score", "Participating" };
 
@@ -491,11 +527,19 @@ public class TournamentInterface extends javax.swing.JFrame {
             false, false, true
         };
 
+        /**
+         * gets the row count
+         * @return the number of entries in the table - int
+         */
         @Override
         public int getRowCount() {
             return players.size();
         }
 
+        /**
+         * gets the number of columns in the table
+         * @return int of the number of columns
+         */
         @Override
         public int getColumnCount() {
             return columnNames.length;
@@ -531,6 +575,12 @@ public class TournamentInterface extends javax.swing.JFrame {
             }
         }
 
+        /**
+         * used to set the values of the boolean part of the table. Player and brain cannnot be changed.
+         * @param aValue the value to be inserted
+         * @param rowIndex the row to be inserted on
+         * @param columnIndex the column to be inserted on
+         */
         @Override
         public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
             switch (columnIndex) {
@@ -555,14 +605,27 @@ public class TournamentInterface extends javax.swing.JFrame {
 
         }
         
+        /**
+         * gets a player object from the table, at the specified index
+         * @param index player entry to be obtained
+         * @return the player that is at the index
+         */
         public Player getPlayer(int index){
             return players.get(index).getP();
         }
 
+        /**
+         * used to add a new player to the table and so the model and data.
+         * @param p the player to be added
+         */
         public void addNewPlayer(Player p) {
             players.add(new player_boolean(p, false));
         }
         
+        /**
+         * used to delete a player entry from the table. Deletes the highlighted player 
+         * @return int to represent error messages - 1 = success, 0 = failure 
+         */
         public int deletePlayer (){
             int tbd = table_players.getSelectedRow();
             boolean b = players.remove(tbd).isB();
@@ -573,16 +636,27 @@ public class TournamentInterface extends javax.swing.JFrame {
                 return 1;                
         }
 
+        /**
+         * function to call the sort sequence of the table
+         */
         private void sort() {
             Collections.sort(players, new scoreComparer());
         }
         
+        /**
+         * function to get the player_boolean class that is stored at the index
+         * @param index int that shows the place in the table the player is
+         * @return the player_boolean stored at index
+         */
         private player_boolean getPlayerBoolean(int index) {
             return players.get(index);
         }
     }
     
-    // subclass to store players and booleans in a single class.  boolean represents if the player is taking part in the tournament
+    /**
+     * subclass to store players and booleans in a single class.  boolean represents if the player is taking part in the tournament
+     * contains only simple setters and getters
+     */
     class player_boolean{
         Player p; 
         boolean b;
@@ -605,9 +679,17 @@ public class TournamentInterface extends javax.swing.JFrame {
         }
     }
     
-    // compares the scores of player boolean so that the players can be ordered by score
+    /**
+     * compares the scores of player_boolean's so that the players can be ordered by score
+     */
     class scoreComparer implements Comparator<player_boolean>{
 
+        /**
+         * the compare method to judge whether o1 or o2 is larger. Sorted by score, then by name alphabetically
+         * @param o1 first object to compare
+         * @param o2 second object to compare
+         * @return 1 if o1 is greater, 0 if same, -1 if o1 is smaller
+         */
         @Override
         public int compare(player_boolean o1, player_boolean o2) {  
             
