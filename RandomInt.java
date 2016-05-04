@@ -18,46 +18,36 @@ import java.math.*;
  */
 public class RandomInt
 {
-    // instance variables - replace the example below with your own
     private BigInteger seed;
     private int count;
+    private BigInteger d;
 
     /**
      * Constructor for objects of class randGen
      */
     public RandomInt()
     {
-        // initialise instance variables
-        seed = new BigInteger("12345");
+        d = new BigInteger("12345");
         count = 0;
+        for(int i = 0;i<4;i++){
+            d = (d.multiply(new BigInteger("22695477"))).add(new BigInteger("1"));
+        }
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     public int generateRand(int m)
     {
         int number = 1000;
         BigInteger n = new BigInteger(Integer.toString(m));
-        BigInteger d = seed;
-        BigInteger[] s = new BigInteger[number];
-        BigInteger[] x = new BigInteger[number-4];
+        BigInteger num = d;
         BigInteger out;
         
+        out = (num.divide(new BigInteger("65536"))).mod(new BigInteger("16384"));
         
-        for (int i = 0; i<number;i++){
-            s[i] = d;
-            d = (d.multiply(new BigInteger("22695477"))).add(new BigInteger("1"));
-        }
-        for (int i = 0; i<number-4;i++){
-            x[i] = (s[i+4].divide(new BigInteger("65536"))).mod(new BigInteger("16384"));
-        }
-        out = x[count].mod(n);
-        count ++;
+        out = out.mod(n);
         
+        num = (num.multiply(new BigInteger("22695477"))).add(new BigInteger("1"));
+       
+        d = num;
         return out.intValue();
     }
     
