@@ -38,6 +38,7 @@ public class Game {
         RedFSM = RedAntBrain.getFiniteStateMachine();
         BlackFSM = BlackAntBrain.getFiniteStateMachine();
         RoundCount = 0;
+        
     }
 
     public AntBrain getRedAntBrain() {
@@ -120,35 +121,62 @@ public class Game {
 
     public void generateAnts() {
         int antCount = 0;
-        Cell[] map = null;
-        map[1] = GameWorld.getWorld();
-        for (int i = 0; i < map.length; i++) {
-            if (map[i].checkAntHill("black")) {
-                Ant newAnt;
-                newAnt = new Ant("black", GameWorld, map[i]);
-                map[i].setAnt(newAnt);
-                Ants[antCount] = newAnt;
-                antCount++;
-            } else if (map[i].checkAntHill("red")) {
-                Ant newAnt = new Ant("red", GameWorld, map[i]);
-                map[i].setAnt(newAnt);
-                Ants[antCount] = newAnt;
-                antCount++;
+        Cell currentCell = GameWorld.getWorld();
+        Cell nextCell = null;
+        for (int y = 0; y < GameWorld.sizeY; y++){
+            output += "\n";
+            if (y < sizeY-1){                    
+                if (y%2 ==0){
+                    nextCell = currentCell.getAdjacent(1);
+                } else{
+                    nextCell = currentCell.getAdjacent(2);
+                }
+            }    
+            for(int x = 0; x< GameWorld.sizeX; x++){
+                if (currentCell.checkAntHill("black")) {
+                    Ant newAnt;
+                    newAnt = new Ant("black", GameWorld, currentCell);
+                    currentCell.setAnt(newAnt);
+                    Ants[antCount] = newAnt;
+                    antCount++;
+                } else if (currentCell.checkAntHill("red")) {
+                    Ant newAnt = new Ant("red", GameWorld, currentCell);
+                    currentCell.setAnt(newAnt);
+                    Ants[antCount] = newAnt;
+                    antCount++;
+                }
+            }
+            if (y < sizeY-1){
+                currentCell = nextCell;
             }
         }
-
     }
 
     public void tallyScore() {
-        Cell[] map = null;
-        map[1] = GameWorld.getWorld();
+       
         int redFood = 0;
         int blackFood = 0;
-        for (int i = 0; i < map.length; i++) {
-            if (map[i].checkAntHill("black")) {
-                blackFood += map[i].getFood();
-            } else if (map[i].checkAntHill("red")) {
-                redFood += map[i].getFood();
+        
+        Cell currentCell = GameWorld.getWorld();
+        Cell nextCell = null;
+        for (int y = 0; y < GameWorld.sizeY; y++){
+            output += "\n";
+            if (y < sizeY-1){                    
+                if (y%2 ==0){
+                    nextCell = currentCell.getAdjacent(1);
+                } else{
+                    nextCell = currentCell.getAdjacent(2);
+                }
+            }    
+            for(int x = 0; x< GameWorld.sizeX; x++){
+                if (currentCell.checkAntHill("black")) {
+                    blackFood += currentCell.getFood();
+                } else if (currentCell.checkAntHill("red")) {
+                    redFood += currentCell.getFood();
+                }
+            }
+            if (y < sizeY-1){
+                currentCell = nextCell;
             }
         }
         RedScore = redFood;
