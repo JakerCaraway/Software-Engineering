@@ -26,7 +26,8 @@ public class World {
     
     public World(File worldFile){
         this.worldFile = worldFile;
-        CreateNewWorld();
+        if (worldFile != null)
+            CreateNewWorld();  
     }
     
     public void CreateNewWorld()
