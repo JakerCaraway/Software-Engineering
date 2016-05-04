@@ -124,8 +124,7 @@ public class Game {
         Cell currentCell = GameWorld.getWorld();
         Cell nextCell = null;
         for (int y = 0; y < GameWorld.sizeY; y++){
-            output += "\n";
-            if (y < sizeY-1){                    
+            if (y < GameWorld.sizeY-1){                    
                 if (y%2 ==0){
                     nextCell = currentCell.getAdjacent(1);
                 } else{
@@ -146,7 +145,7 @@ public class Game {
                     antCount++;
                 }
             }
-            if (y < sizeY-1){
+            if (y < GameWorld.sizeY-1){
                 currentCell = nextCell;
             }
         }
@@ -160,8 +159,7 @@ public class Game {
         Cell currentCell = GameWorld.getWorld();
         Cell nextCell = null;
         for (int y = 0; y < GameWorld.sizeY; y++){
-            output += "\n";
-            if (y < sizeY-1){                    
+            if (y < GameWorld.sizeY-1){                    
                 if (y%2 ==0){
                     nextCell = currentCell.getAdjacent(1);
                 } else{
@@ -175,7 +173,7 @@ public class Game {
                     redFood += currentCell.getFood();
                 }
             }
-            if (y < sizeY-1){
+            if (y < GameWorld.sizeY-1){
                 currentCell = nextCell;
             }
         }
