@@ -37,9 +37,12 @@ public class Tournament {
   {  
        players = player;
        this.world = world;
-       
   }
   
+  // gets the players list
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
 
  // Run a tounament
   public void runTournament()
@@ -49,10 +52,13 @@ public class Tournament {
           {
              if(a != b)
              {
+                 System.out.println("Match between " + a.getName()+ " and " + b.getName() +" now starting");
                  Game game1 = new Game(world,a,b);
                  Game game2 = new Game(world,b,a); //Create a second match with players playing different colour
                  game1.run();
+                 System.out.println("Match between " + a.getName()+ " and " + b.getName() +" now switching places");
                  game2.run();
+                 System.out.println("Match between " + a.getName()+ " and " + b.getName() +" now finished");
              }
           }
       checkWinner();
