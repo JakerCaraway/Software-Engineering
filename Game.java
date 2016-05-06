@@ -209,6 +209,7 @@ public class Game {
         if (Ants[0] == null)
             generateAnts();        
         for (int i = 0; i < iterations; i++) {
+            //System.out.println("Game round "+ Integer.toString(i) + " Starting");
             for (int j = 0; j < antNo; j++) {
                 currentAnt = Ants[j];
                 currentAnt.decrRest();
