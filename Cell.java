@@ -6,8 +6,10 @@
 package AntGame;
 
 /**
- *
- * @author jb555
+ * This class imitates a cell of the game world. The purpose of the class is
+ * to contain any information about the specific cell that it imitates. For 
+ * example if it is a rock, contains food or contains an ant.
+ * @author Jack
  */
 public class Cell {
     private final int PheromoneNo = 12;
@@ -21,6 +23,15 @@ public class Cell {
     private Cell[] AdjacentCells;
     private int x,y;
     
+    /**
+     * This method initialises the values stored in the Cell class. This includes
+     * setting the co-ordinates of the cell, setting rocky to false, setting food 
+     * to 0, initialising the cell to not contain an ant, initialising the cell to
+     * not contain any pheromones, initialising the cell to not be an ant hill and 
+     * initialising the adjacent cells array.
+     * @param x the x co-ordinate of the cell on the world
+     * @param y the y co-ordinate of the cell on the world
+     */
     public Cell(int x, int y){
         this.x = x;
         this.y = y;
@@ -36,50 +47,97 @@ public class Cell {
         AdjacentCells = new Cell[6];
     }
     
+    /**
+     * This method is used to toggle whether the cell is a rock or not
+     */
     public void setRocky(){
         Rocky = !Rocky;
     }
     
+    /**
+     * This method is used to return if the cell is rocky or not
+     * @return a boolean value indicating if the cell is a rock or not
+     */
     public boolean getRocky(){
         return Rocky;
     }
     
+    /**
+     * This method sets the food variable to an inputted amount
+     * @param amount the amount of food that the cell needs to hold
+     */
     public void setFood(int amount){
         Food = amount;
     }
     
+    /**
+     * This method is used to return how much food the cell currently holds
+     * @return number the food variable contains
+     */
     public int getFood(){
         return Food;
     }
     
+    /**
+     * This method sets the ant variable to the Ant class inputted
+     * @param ant an Ant class
+     */
     public void setAnt(Ant ant){
         Ant = ant;
     }
     
+    /**
+     * This method returns the ant variable
+     * @return ant variable
+     */
     public Ant getAnt(){
         return Ant;
     }
     
+    /**
+     * This method sets the ant variable to null
+     */
     public void removeAnt(){
         Ant = null;
     }
     
+    /**
+     * This method returns true if the aant variable contains a value, else false
+     * @return a boolean value
+     */
     public boolean isAnt(){
         return !(Ant == null);
     }
     
+    /**
+     * This method toggles a boolean value in the pheramones array depending
+     * on the pheramone value and colour inputted
+     * @param Pheromone number pheramone to toggle
+     * @param Colour colour of the ant setting the pheramone, used to determine what set of 6 to toggle
+     */
     public void setPheramone(int Pheromone,String Colour){
         if (Colour.equals("black"))
                 Pheromone += 6;
         Pheromones[Pheromone] = !Pheromones[Pheromone];
     }
     
+    /**
+     * This method checks the pheramone array value at the value found
+     * using the inputted pheromone value and colour
+     * @param Pheromone number pheromone to check
+     * @param colour of the ant, used to determine what set of 6 to check
+     * @return a boolean value that the array place contains
+     */
     public boolean checkPheromone(int Pheromone,String Colour){
         if (Colour.equals("black"))
                 Pheromone += 6;
         return Pheromones[Pheromone];
     }
     
+    /**
+     * This method sets the ant hill value corresponding to the colour inputted to true
+     * @param colour The colour ant hill to change to true
+     */
     public void setAntHill(String colour){
         switch (colour) {
             case "red":
@@ -91,6 +149,12 @@ public class Cell {
         }
     }
     
+    /**
+     * This method checks the ant hill value corresponding to the inputted colour and outputs the
+     * boolean value that it contains
+     * @param colour the colour ant hill to check
+     * @return a boolean value that either RedAntHill or BlackAntHill contains
+     */
     public boolean checkAntHill(String colour){
         switch (colour) {
             case "red":
@@ -101,10 +165,21 @@ public class Cell {
         return false;
     }
     
+    /**
+     * This method returns the cell that is adjacent to the current cell on the side inputted
+     * @param side the number side to look at
+     * @return the Cell stored in the adjacent array at position 'side'
+     */
     public Cell getAdjacent(int side){
         return AdjacentCells[side];
     }
     
+    /**
+     * This method sets the value in the adjacentCells array at position 'side' inputted
+     * to the Cell inputted
+     * @param side The number side to change
+     * @param adj The cell to input into the array
+     */
     public void setAdjacent(int side, Cell adj){
         AdjacentCells[side] = adj;
     }
