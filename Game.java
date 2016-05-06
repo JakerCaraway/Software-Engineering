@@ -6,7 +6,9 @@
 package AntGame;
 
 /**
- *
+ * This class contains the code to run the game using all of the other classes.
+ * The purpose of this class is to initialise the world and then run both ant 
+ * brains on each teams ants and move them for the inputted amount of turns.
  * @author jb555
  */
 public class Game {
@@ -27,7 +29,18 @@ public class Game {
     private int RoundCount;
     private int BlackScore;
     private int RedScore;
-
+    
+    /**
+     * This method initialises the values stored inside the Game class. This includes
+     * setting both players to the inputted players, setting both ant brains to the 
+     * brains stored in each player class, initialising the ant array, setting the world 
+     * to the inputted world, settinf the finite state machines to the ones contained
+     * in the ant brains, initialising the round count to 0 and initialising the random 
+     * number generator.
+     * @param GameWorld The world class that stores the map needed for the current game
+     * @param RedPlayer The player class for the red player of the current game
+     * @param BlackPlayerThe player class for the black player of the current game
+     */
     public Game(World GameWorld, Player RedPlayer, Player BlackPlayer) {
         this.RedPlayer = RedPlayer;
         this.BlackPlayer = BlackPlayer;
@@ -41,38 +54,75 @@ public class Game {
         NumberGen = new RandomInt();
     }
 
+    /**
+     * This method returns the ant brain stored in the redAntBrain variable
+     * @return the ant brain currently stored in redAntBrain
+     */
     public AntBrain getRedAntBrain() {
         return RedAntBrain;
     }
-
+    
+    /**
+     * This method returns the ant brain stored in the blackAntBrain variable
+     * @return the ant brain currently stored in blackAntBrain
+     */
     public AntBrain getBlackAntBrain() {
         return BlackAntBrain;
     }
-
+    
+    /**
+     * This method returns the player stored in the redPlayer variable
+     * @return the player currently stored in redPlayer
+     */
     public Player getRedPlayer() {
         return RedPlayer;
     }
-
+    
+    /**
+     * This method returns the player stored in the blackPlayer variable
+     * @return the player currently stored in blackPlayer
+     */
     public Player getBlackPlayer() {
         return BlackPlayer;
     }
 
+    /**
+     * This method returns the array of Ant classes contained in ants
+     * @return the array of Ant classes in ants
+     */
+     
     public Ant[] getAnts() {
         return Ants;
     }
 
+    /**
+     * This method returns the world stored in GameWorld
+     * @return the world in GameWorld
+     */
     public World getGameWorld() {
         return GameWorld;
     }
 
+    /**
+     * This method sets the array ants to the Ant array inputted
+     * @param Ants an array of ants that you want the Game class to hold
+     */
     public void setAnts(Ant[] Ants) {
         this.Ants = Ants;
     }
 
+    /**
+     * This method returns the current round that the game is on
+     * @return the value stored in thge RoundCount variable
+     */
     public int getRoundCount(){
         return RoundCount;
     }
 
+    /**
+     * This method returns the colour of the player who has the highest score or 'draw' if the players have the same score
+     * @return the colour of the team with the highest score variable or 'draw'
+     */
     public String getWinner(){
         if (RedScore > BlackScore){
             return "red";
@@ -83,6 +133,11 @@ public class Game {
         }
     }
 
+    /**
+     * This method checks to see if the ants are surrounded by 5 or more ants,
+     * if so the ant variable alive is changed to false and the ant is changed
+     * to food on the cell that it was currently occupying.
+     */
     public void checkDeadAnts() {
         boolean isDead;
         int deadCount;
@@ -119,6 +174,10 @@ public class Game {
         }
     }
 
+    /**
+     * This method fills the Cells that either redAntHill or blackAntHill are true
+     * with ants of the same colour and adds them to the Ants array
+     */
     public void generateAnts() {
         int antCount = 0;
         Cell currentCell = GameWorld.getWorld();
@@ -156,6 +215,10 @@ public class Game {
         }
     }
 
+    /**
+     * This method sets the score of each team to the amount of food stored in the cells
+     * that correspond to the teams anthill
+     */
     public void tallyScore() {
        
         int redFood = 0;
@@ -186,16 +249,30 @@ public class Game {
         BlackScore = blackFood;
     }
     
+    /**
+     * This method runs the runGame class for the amount of rounds set by the
+     * static variable rounds stored in the Game class
+     */
     public void run(){
         runGame(rounds);
     }
     
+    /**
+     * This method runs the runGame class for an amount of times corresponding
+     * to the sections value inputted
+     * @param the number of sections that the game is running in
+     */
     public void runSection(int sections){
         int iterations;
         iterations = rounds/sections;
         runGame(iterations);
     }
     
+    /**
+     * This method gets the instructions stored in each antbrain for each ant at each round
+     * and then executes them, the for loop runs for as many rounds as inputted.
+     * @param the number of rounds that the for loop should run for
+     */
     public void runGame(int iterations) {
         String currentColour;
         String[] currentFSM;
