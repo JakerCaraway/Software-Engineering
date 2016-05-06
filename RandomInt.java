@@ -11,19 +11,19 @@ package AntGame;
  */
 import java.math.*;
 /**
- * Write a description of class randGen here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * This class is used to create a random number using a seed specified inside the
+ * constructor using various formulas.
+ * @author Jack
  */
 public class RandomInt
 {
-    private BigInteger seed;
     private int count;
     private BigInteger d;
 
     /**
-     * Constructor for objects of class randGen
+     * This method initialises the values stored in the RandomInt class. This includes
+     * the seed (d) and then changes it according to the specification given using 
+     * multiplication and addition 4 times.
      */
     public RandomInt()
     {
@@ -34,6 +34,13 @@ public class RandomInt
         }
     }
 
+    /**
+     * This method is used to generate a new random number between 0 and m-1. It uses 
+     * more maths according to the specification to change the d variable which is used
+     * to calculate the output.
+     * @param m the maximum random number to be found + 1
+     * @return a random integer
+     */ 
     public int generateRand(int m)
     {
         int number = 1000;
