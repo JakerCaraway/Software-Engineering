@@ -59,7 +59,7 @@ public class tournamentUIWorker extends SwingWorker<String, String>{
         int i = 0;
         for (Player a : playersCompeting) {
             for (Player b : playersCompeting) {
-                if (a != b && !competed[i]) {
+                if (a != b && !competed[playersCompeting.indexOf(b)]) {
                     System.out.println("Match between " + a.getName() + " and " + b.getName() + " now starting");
                     Game game1 = new Game(game_world, a, b);
                     Game game2 = new Game(game_world, b, a); //Create a second match with players playing different colour

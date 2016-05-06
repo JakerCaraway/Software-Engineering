@@ -1,15 +1,16 @@
 package AntGame;
+import AntGame.Player;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
+import static java.lang.Math.round;
+import java.util.Dictionary;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.SwingWorker;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 /*
@@ -23,51 +24,22 @@ import javax.swing.event.ChangeListener;
  * 
  * @author oab24
  */
-public class GameInterface extends javax.swing.JFrame {
+public class GameInterface_original_copy extends javax.swing.JFrame {
     Player player1;
     Player player2;
     boolean gamerunning;
-    File game_world_file;
-    simulationUI worker;
-
-    /**
-     * used to update the labels about the winner of the game
-     */
-    public void showWinner(){
-        String s = worker.getSimuWorkerGame().getWinner();
-        if (s.equals("red")){
-            player1.incrScore();
-            label_winner.setText("Winner is: "+ player1.getName());
-        } else if (s.equals("black")){
-            player2.incrScore();
-            label_winner.setText("Winner is: "+ player2.getName());
-        }else {
-            label_winner.setText("Draw");
-        }
-        label_Player1Score.setText("Score: "+ (Integer.toString(player1.getScore()))) ;
-        label_Player2Score.setText("Score: "+ (Integer.toString(player2.getScore()))) ;        
-        gamerunning = false;
-    }
+    File game_world;
+    
     
     /**
      * Creates new form GameInterface
      */
-    public GameInterface() {
+    public GameInterface_original_copy() {
         initComponents();
         initialiseComponents();      
         player1 = null;
         player2= null;
         gamerunning = false;
-        // Fast testing - preloads players and a specified simple file brain
-        /* 
-        try{
-            File f = new File("N:\\Documents\\moving_forward_ants.txt");
-            player1 = new Player("o", new AntBrain(f));
-            player2 = new Player("j", new AntBrain(f));
-        } catch (FileNotFoundException e){
-            System.out.println("Testing values not found for brains");
-        }
-        */ 
     }
     
     /**
@@ -180,7 +152,6 @@ public class GameInterface extends javax.swing.JFrame {
         label_winner = new javax.swing.JLabel();
         button_runGame = new javax.swing.JButton();
         label_matchRunning = new javax.swing.JLabel();
-        label_roundNumber = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -208,7 +179,7 @@ public class GameInterface extends javax.swing.JFrame {
         speedSlider.setPaintLabels(true);
         speedSlider.setPaintTicks(true);
         speedSlider.setToolTipText("Higher numbers = more rounds pass before the map is updated again");
-        speedSlider.setValue(4);
+        speedSlider.setValue(1);
 
         panel_player1.setBorder(javax.swing.BorderFactory.createTitledBorder("Player 1"));
         panel_player1.setName("Player 1"); // NOI18N
@@ -332,8 +303,6 @@ public class GameInterface extends javax.swing.JFrame {
             }
         });
 
-        label_roundNumber.setText("Partition Number");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -342,6 +311,10 @@ public class GameInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(scrollPane_WorldDisplay, javax.swing.GroupLayout.DEFAULT_SIZE, 1596, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(label_roundsPerRefresh)
+                        .addGap(89, 89, 89))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -376,16 +349,7 @@ public class GameInterface extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(117, 117, 117)
                                 .addComponent(label_matchRunning, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(label_roundsPerRefresh)
-                                .addGap(89, 89, 89))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(label_roundNumber)
-                                .addGap(115, 115, 115))))))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,9 +367,7 @@ public class GameInterface extends javax.swing.JFrame {
                         .addComponent(slide_fontSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(label_matchRunning, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(label_roundNumber)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(button_chooseWorld, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -450,8 +412,7 @@ public class GameInterface extends javax.swing.JFrame {
     private void button_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_mainMenuActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        MainScreen.main_screen.setVisible(true);
-        worker.cancel(true);
+        MainScreen.main_screen.setVisible(true);        
     }//GEN-LAST:event_button_mainMenuActionPerformed
 
     /**
@@ -557,48 +518,107 @@ public class GameInterface extends javax.swing.JFrame {
     // sets the actions of run game button
     /**
      * If the use random world box is checked, will run a random world, otherwise the loaded world. Will then run the simulation for the number of rounds
+     * Should update the UI every time the rounds in run, however this has not been implemented
      * Uses winner label to display the result of the match
      * @param evt the run Game being clicked
      */
     private void button_runGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_runGameActionPerformed
         // TODO add your handling code here:
-        
-        if (game_world_file == null && !check_randomWorlds.isSelected())
-            JOptionPane.showMessageDialog(rootPane, "There is no world selected. Please either turn random worlds on\n or select your own world");
-        else {
-            worker = new simulationUI(speedSlider.getValue(), game_world_file, check_randomWorlds.isSelected(), player1, player2, this);
-            try {            
-                worker.execute();
-            } catch (Exception ex) {
-                System.out.println("Couldnt do in background");
+        if (player1==null || player2 ==null){ 
+            JOptionPane.showMessageDialog(rootPane, "Please add some players before running a game");
+        } else {
+            World w = null;            
+            if (game_world == null && check_randomWorlds.isSelected()){
+                w = new World(null);                
+                w.getRandomWorld(150,150);
+            } else if (game_world != null)
+                w = new World(game_world);
+            if ((game_world == null) && (w ==null) ){
+                JOptionPane.showMessageDialog(rootPane, "There is no world selected. Please either turn random worlds on\n or select your own world");
+            }else{
+                label_matchRunning.setText("Match is running. THIS WILL take a while");
+                label_winner.setText("");                
+                gamerunning = true;                       
+                // construct game instance
+                Game game_instance = new Game(w, player1, player1);
+                // show map                 
+                String map = setupWorldForDisplay(w.GetCurrentWorld());
+                label_worldDisplay.setText(map);
+                label_worldDisplay.setVisible(true);
+                int speed = getActualSpeed();
+                /*
+                // Attempts to get the UI updating each round
+                Thread t = new Thread(new Runnable() {
+                        @Override
+                        public void run() {      
+                            for (int i = 0; i < (300000/speed);i++ ){
+                                game_instance.runSection(speed);       
+                                System.out.println("The game has run round " + Integer.toString(i)+ " of " + Integer.toString(300000/speed));
+                                String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                                label_worldDisplay.setText(s2);                   
+                                System.out.println("ui_updated");
+                            }   
+                            
+                        }     
+                    });
+                t.run();*/
+                for (int i = 0; i < (300000/speed);i++ ){
+                    game_instance.runSection(speed);       
+                    System.out.println("The game has run round " + Integer.toString(i)+ " of " + Integer.toString(300000/speed));
+                    // UI should update here at each round, however does not. 
+                    //Suspect that it is a threading issue of event action, main process and update UI trying to run at the same time
+                    String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                    label_worldDisplay.setText(s2);                   
+                    System.out.println("ui_updated");
+                }
+                
+                String s2 = setupWorldForDisplay(game_instance.getGameWorld().GetCurrentWorld());
+                label_worldDisplay.setText(s2);
+                System.out.println("The game has finished the match");
+                String s = game_instance.getWinner();
+                if (s.equals("red")){
+                    player1.incrScore();
+                    label_winner.setText("Winner is: "+ player1.getName());
+                } else if (s.equals("black")){
+                    player2.incrScore();
+                    label_winner.setText("Winner is: "+ player2.getName());
+                }else {
+                    label_winner.setText("Draw");
+                }
+                
+                    
+                
+                label_Player1Score.setText("Score: "+ (Integer.toString(player1.getScore()))) ;
+                label_Player2Score.setText("Score: "+ (Integer.toString(player2.getScore()))) ;        
+                gamerunning = false;   
             }
         }
     }//GEN-LAST:event_button_runGameActionPerformed
 
-    /**
-     * getter for the label of if the match is running or not.
-     * @return the label
-     */
-    public JLabel getLabel_matchRunning() {
-        return label_matchRunning;
-    }
-
-    /**
-     * getter for the label that runs the world display
-     * @return the label of the world display
-     */
-    public JLabel getLabel_worldDisplay() {
-        return label_worldDisplay;
-    }
     
     /**
-     * gets the label that will show the round number
-     * @return the label that shows the round number
+     * used to get the speeds that the speed slider represents. This is because the actual values correspond to labels which are tricky to obtain
+     * @return the speed that the slider variable represents.
      */
-    public JLabel getLabel_roundNumber(){
-        return label_roundNumber;
+    private int getActualSpeed(){
+        int speed = speedSlider.getValue();
+        switch (speed){
+                case 1: 
+                    return 1;
+                case 2:
+                    return 10;
+                case 3:
+                    return 50;
+                case 4:
+                    return 100;
+                case 5:
+                    return 1000;
+                case 6:
+                    return 10000;
+                default:
+                    return 1;
+        }
     }
-
     
     /**
      * Method used when Choose world button is pressed. Uses a file chooser to load a file that should contain a valid world.
@@ -608,8 +628,8 @@ public class GameInterface extends javax.swing.JFrame {
         JFileChooser fc = new JFileChooser();        
         int returnVal = fc.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {            
-            game_world_file = fc.getSelectedFile();
-            World w = new World(game_world_file);
+            game_world = fc.getSelectedFile();
+            World w = new World(game_world);
             String s = w.GetCurrentWorld();
             //"<html>Choose<br/>world<html>"
             String s2 = setupWorldForDisplay(s);
@@ -631,7 +651,7 @@ public class GameInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (check_randomWorlds.isSelected()){
             button_chooseWorld.setEnabled(false);
-            game_world_file = null;
+            game_world = null;
         }else{
             button_chooseWorld.setEnabled(true);
         }
@@ -669,7 +689,6 @@ public class GameInterface extends javax.swing.JFrame {
     private javax.swing.JLabel label_Player1Score;
     private javax.swing.JLabel label_Player2Score;
     private javax.swing.JLabel label_matchRunning;
-    private javax.swing.JLabel label_roundNumber;
     private javax.swing.JLabel label_roundsPerRefresh;
     private javax.swing.JLabel label_winner;
     private javax.swing.JLabel label_worldDisplay;
